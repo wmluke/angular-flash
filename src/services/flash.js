@@ -1,4 +1,4 @@
-(function (angular) {
+(function (angular, _) {
     'use strict';
 
     var Flash = function () {
@@ -66,4 +66,4 @@
     angular.module('angular-common.flash-service', [])
         .factory('flash', [flashProvider]);
 
-}(window.angular || {}));
+}(window.angular || {}, window._ || {}));

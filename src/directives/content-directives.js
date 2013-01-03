@@ -1,4 +1,4 @@
-(function (angular) {
+(function (angular, marked, _, CodeMirror) {
     'use strict';
 
     function compile($compile) {
@@ -21,13 +21,13 @@
                     $compile(element.contents())(scope);
                 }
             );
-        }
+        };
     }
 
     function googlePretty($window) {
         return function (scope, elm, attrs) {
             $window.prettyPrint();
-        }
+        };
     }
 
     function markdown() {
@@ -49,6 +49,7 @@
         return function (scope, element, attr) {
             var getter = $parse(attr.ngModel);
             var setter = getter.assign;
+            var codeMirror;
 
             var opts = _.extend({
                 mode: 'text',
@@ -69,7 +70,7 @@
                 });
             };
 
-            var codeMirror = CodeMirror.fromTextArea(element.get(0), opts);
+            codeMirror = CodeMirror.fromTextArea(element.get(0), opts);
 
             scope.$watch(attr.ngModel, function (value) {
                 if (value && value !== codeMirror.getValue()) {
@@ -102,7 +103,7 @@
             element.on('click', '.value', edit);
 
             element.children('input').keyup(function (event) {
-                var keycode = (event.keyCode ? event.keyCode : event.which);
+                var keycode = event.keyCode || event.which;
                 if (keycode === 13) {
                     display();
                 }
@@ -115,7 +116,13 @@
             restrict: 'A', // only activate on element attribute
             require: '?ngModel', // get a hold of NgModelController
             link: function (scope, element, attrs, ngModel) {
-                if (!ngModel) return; // do nothing if no ng-model
+                if (!ngModel) {
+                    return; // do nothing if no ng-model
+                }
+
+                function read() {
+                    ngModel.$setViewValue(element.text());
+                }
 
                 // Specify how UI should be updated
                 ngModel.$render = function () {
@@ -128,10 +135,7 @@
                 });
                 read(); // initialize
 
-                // Write data to the model
-                function read() {
-                    ngModel.$setViewValue(element.text());
-                }
+
             }
         };
     }
@@ -144,4 +148,4 @@
         .directive('prettyprint', ['$window', googlePretty])
         .filter('markdown', [markdown]);
 
-}(window.angular || {}));
+}(window.angular || {}, window.marked || {}, window.underscore || {}, window.CodeMirror || {}));

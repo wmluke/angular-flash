@@ -1,14 +1,14 @@
-(function (angular) {
+(function (angular, _, moment, $) {
     'use strict';
 
     function navCollapse() {
-        return function (scope, element, attrs) {
+        return function (scope, element) {
             element.collapse();
-        }
+        };
     }
 
-    function flash(flash, $timeout) {
-        return function ($scope, element, attr) {
+    function flashDirective(flash, $timeout) {
+        return function ($scope, element) {
             $scope.flash = {};
 
             var headings = {
@@ -21,7 +21,7 @@
             function hide(type) {
                 element.fadeOut('slow', 'linear', function () {
                     $scope.flash = {};
-                    element.removeClass('alert-' + type)
+                    element.removeClass('alert-' + type);
                 });
             }
 
@@ -53,7 +53,7 @@
                 ngUpdate = $parse(attr.ngUpdate),
                 source = attr['source'];
 
-            $(element).change(function (evt) {
+            element.change(function (evt) {
                 scope.$apply(function () {
                     if (ngModel) {
                         ngModel.assign(scope, evt.target.value);
@@ -68,7 +68,7 @@
                 if (_.isEmpty(data)) {
                     return;
                 }
-                $(element).typeahead({
+                element.typeahead({
                     source: data
                 });
 
@@ -101,7 +101,7 @@
 
     function navToggle() {
         return function (scope, element, attr) {
-            $(element).click(function (evt) {
+            element.click(function (evt) {
                 $(evt.target).closest('li').addClass('active').siblings().removeClass('active');
             });
         };
@@ -178,7 +178,7 @@
     }
 
     angular.module('angular-common.bootstrap-directives', ['angular-common.flash-service'])
-        .directive('flash', ['flash', '$timeout', flash])
+        .directive('flash', ['flash', '$timeout', flashDirective])
         .directive('datePicker', ['$parse', datePicker])
         .directive('transition', ['$timeout', transition])
         .directive('tooltip', ['$timeout', tooltip])
@@ -187,4 +187,4 @@
         .directive('navCollapse', [navCollapse])
         .directive('typeahead', ['$parse', typeahead]);
 
-}(window.angular || {}));
+}(window.angular || {}, window.underscore || {}, window.moment || {}, window.$ || {}));

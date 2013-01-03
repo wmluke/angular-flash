@@ -3,9 +3,16 @@
     "name": "angular-common",
     "description": "Angular Tools - Some tools for Angular JS",
     "version": "0.0.1",
+    "homepage": "https://github.com/wmluke/angular-common",
     "repository": {
         "type": "git",
         "url": "git://github.com/wmluke/angular-common.git"
     },
-    "dependencies": {}
+    "dependencies": {},
+    "devDependencies": {
+        "grunt": "~0.4.0",
+        "grunt-contrib-jshint": "~0.1.0",
+        "grunt-contrib-nodeunit": "~0.1.0"
+    },
+    "license": "http://www.apache.org/licenses/LICENSE-2.0.html"
 }

@@ -36,7 +36,7 @@
             var interval = new Interval($timeout, callback, delay);
             interval.run = true;
             return interval;
-        }
+        };
     };
 
 
