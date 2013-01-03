@@ -1,0 +1,20 @@
+{
+    "author": "William Bunselmeyer",
+    "name": "angular-common",
+    "description": "Angular Tools - Some tools for Angular JS",
+    "version": "0.0.1",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/wmluke/angular-common.git"
+    },
+    "dependencies": {
+        "underscore": "1.4.3",
+        "underscore.string": "2.3.1",
+        "jQuery": "1.9.0b1",
+        "bootstrap": "2.2.2",
+        "bootstrap-datepicker": "e13a07cdafb9c948f79729e87effb52af8465c41",
+        "marked": "0.2.6",
+        "codemirror": "3.0.21",
+        "angular.js": "http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.js"
+    }
+}
