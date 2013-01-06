@@ -74,5 +74,28 @@ describe('FlashService', function () {
 
     });
 
+    describe('key-down-arrow directive', function () {
 
+        it('should run the passed expression on down-arrow keyup event', function () {
+            scope.onDown = jasmine.createSpy('onDown');
+
+            var elm = compileDirective('<div key-down-arrow="onDown()"></div>');
+
+            var keyupDownArrow = jQuery.Event("keyup");
+            keyupDownArrow.which = 40;
+            elm.trigger(keyupDownArrow);
+
+            var keypressDownArrow = jQuery.Event("keypress");
+            keypressDownArrow.which = 40;
+            elm.trigger(keypressDownArrow);
+
+            var e = jQuery.Event("keydown");
+            e.which = 50;
+            elm.trigger(e);
+
+            expect(scope.onDown).toHaveBeenCalled();
+            expect(scope.onDown.callCount).toBe(1);
+        });
+
+    });
 });
