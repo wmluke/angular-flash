@@ -62,15 +62,15 @@
 
 
             opts.value = getter(scope);
-            opts.onUpdate = function (editor, info) {
+
+            codeMirror = CodeMirror.fromTextArea(element.get(0), opts);
+            codeMirror.on("update", function (editor, info) {
                 $timeout(function () {
                     scope.$apply(function () {
                         setter(scope, codeMirror.getValue());
                     });
                 });
-            };
-
-            codeMirror = CodeMirror.fromTextArea(element.get(0), opts);
+            });
 
             scope.$watch(attr.ngModel, function (value) {
                 if (value && value !== codeMirror.getValue()) {
@@ -148,4 +148,4 @@
         .directive('prettyprint', ['$window', googlePretty])
         .filter('markdown', [markdown]);
 
-}(window.angular || {}, window.marked || {}, window.underscore || {}, window.CodeMirror || {}));
+}(window.angular || {}, window.marked || {}, window._ || {}, window.CodeMirror || {}));

@@ -8,6 +8,7 @@
         "type": "git",
         "url": "git://github.com/wmluke/angular-common.git"
     },
+    "main": ["./dist/angular-common.js", "./dist/angular-common.min.js"],
     "dependencies": {
         "underscore": "1.4.3",
         "underscore.string": "2.3.1",
@@ -16,7 +17,7 @@
         "bootstrap": "2.2.2",
         "bootstrap-datepicker": "e13a07cdafb9c948f79729e87effb52af8465c41",
         "marked": "0.2.6",
-        "codemirror": "3.0.21",
+        "codemirror": null,
         "angular.js": "http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.js"
     }
 }

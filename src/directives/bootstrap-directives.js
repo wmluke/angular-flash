@@ -187,4 +187,4 @@
         .directive('navCollapse', [navCollapse])
         .directive('typeahead', ['$parse', typeahead]);
 
-}(window.angular || {}, window.underscore || {}, window.moment || {}, window.$ || {}));
+}(window.angular || {}, window._ || {}, window.moment || {}, window.$ || {}));
