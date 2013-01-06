@@ -10,9 +10,15 @@
     },
     "dependencies": {},
     "devDependencies": {
+        "testacular": ">= 0.4.0",
         "grunt": "0.3.17",
+        "grunt-jasmine-runner": "latest",
         "grunt-contrib-jshint": "~0.1.0",
         "grunt-contrib-nodeunit": "~0.1.0"
+    },
+    "scripts": {
+        "test": "testacular start --single-run",
+        "test-server": "testacular start"
     },
     "license": "http://www.apache.org/licenses/LICENSE-2.0.html"
 }
