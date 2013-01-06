@@ -1,4 +1,4 @@
-/*! angular-common - v0.0.1 - 2013-01-02
+/*! angular-common - v0.0.1 - 2013-01-05
 * https://github.com/wmluke/angular-common
 * Copyright (c) 2013 William Bunselmeyer 
 * License http://www.apache.org/licenses/LICENSE-2.0.html */
@@ -311,7 +311,7 @@
         .directive('navCollapse', [navCollapse])
         .directive('typeahead', ['$parse', typeahead]);
 
-}(window.angular || {}, window.underscore || {}, window.moment || {}, window.$ || {}));
+}(window.angular || {}, window._ || {}, window.moment || {}, window.$ || {}));
 (function (angular, marked, _, CodeMirror) {
     'use strict';
 
@@ -376,15 +376,15 @@
 
 
             opts.value = getter(scope);
-            opts.onUpdate = function (editor, info) {
+
+            codeMirror = CodeMirror.fromTextArea(element.get(0), opts);
+            codeMirror.on("update", function (editor, info) {
                 $timeout(function () {
                     scope.$apply(function () {
                         setter(scope, codeMirror.getValue());
                     });
                 });
-            };
-
-            codeMirror = CodeMirror.fromTextArea(element.get(0), opts);
+            });
 
             scope.$watch(attr.ngModel, function (value) {
                 if (value && value !== codeMirror.getValue()) {
@@ -462,7 +462,7 @@
         .directive('prettyprint', ['$window', googlePretty])
         .filter('markdown', [markdown]);
 
-}(window.angular || {}, window.marked || {}, window.underscore || {}, window.CodeMirror || {}));
+}(window.angular || {}, window.marked || {}, window._ || {}, window.CodeMirror || {}));
 (function (angular) {
     'use strict';
 
