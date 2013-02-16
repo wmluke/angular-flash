@@ -1,7 +1,7 @@
-/*! angular-common - v0.0.1 - 2013-01-05
-* https://github.com/wmluke/angular-common
-* Copyright (c) 2013 William Bunselmeyer 
-* License http://www.apache.org/licenses/LICENSE-2.0.html */
+/*! angular-common - v0.0.1 - 2013-02-15
+ * https://github.com/wmluke/angular-common
+ * Copyright (c) 2013 William Bunselmeyer
+ * License http://www.apache.org/licenses/LICENSE-2.0.html */
 
 (function (angular, _) {
     'use strict';
@@ -508,9 +508,21 @@
         };
     }
 
+    function blur($parse) {
+        return function (scope, element, attr) {
+            var fn = $parse(attr['blur']);
+            element.blur(function (event) {
+                scope.$apply(function () {
+                    fn(scope, {$event: event});
+                });
+            });
+        };
+    }
+
     angular.module('angular-common.key-event-directives', [])
         .directive('keyEnter', ['$parse', keyEnter])
         .directive('keyUpArrow', ['$parse', keyUpArrow])
-        .directive('keyDownArrow', ['$parse', keyDownArrow]);
+        .directive('keyDownArrow', ['$parse', keyDownArrow])
+        .directive('blur', ['$parse', blur]);
 
 }(window.angular || {}));

@@ -1,14 +1,13 @@
 describe('FlashService', function () {
     'use strict';
 
-    var scope, $sandbox, $compile, $timeout;
+    var scope, $sandbox, $compile;
 
     beforeEach(module('angular-common.key-event-directives'));
 
-    beforeEach(inject(function ($injector, $rootScope, _$compile_, _$timeout_) {
+    beforeEach(inject(function ($injector, $rootScope, _$compile_) {
         scope = $rootScope;
         $compile = _$compile_;
-        $timeout = _$timeout_;
 
         $sandbox = $('<div id="sandbox"></div>').appendTo($('body'));
         scope.model = {};

@@ -18,6 +18,7 @@
     },
     "scripts": {
         "test": "testacular start --single-run",
+        "e2e": "testacular start testacular-e2e.conf.js --single-run",
         "test-server": "testacular start"
     },
     "license": "http://www.apache.org/licenses/LICENSE-2.0.html"

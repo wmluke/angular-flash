@@ -43,9 +43,21 @@
         };
     }
 
+    function blur($parse) {
+        return function (scope, element, attr) {
+            var fn = $parse(attr['blur']);
+            element.blur(function (event) {
+                scope.$apply(function () {
+                    fn(scope, {$event: event});
+                });
+            });
+        };
+    }
+
     angular.module('angular-common.key-event-directives', [])
         .directive('keyEnter', ['$parse', keyEnter])
         .directive('keyUpArrow', ['$parse', keyUpArrow])
-        .directive('keyDownArrow', ['$parse', keyDownArrow]);
+        .directive('keyDownArrow', ['$parse', keyDownArrow])
+        .directive('blur', ['$parse', blur]);
 
 }(window.angular || {}));

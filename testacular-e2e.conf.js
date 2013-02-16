@@ -15,9 +15,11 @@ files = [
     'components/underscore.string/lib/underscore.string.js',
     'test/libs/angular/angular.js',
     'test/libs/angular/angular-mocks.js',
+    ANGULAR_SCENARIO,
+    ANGULAR_SCENARIO_ADAPTER,
     'src/services/*.js',
     'src/directives/*.js',
-    'test/unit/**/*-test.js'
+    'test/e2e/**/*-test.js'
 ];
 
 
