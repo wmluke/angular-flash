@@ -4,7 +4,7 @@ Some of my common Angular JS directives and services that I reuse across my vari
 
 ## Flash
 
-A flash service and directive for setting a displaying flash messages.  Specifically, the flash service is a publisher of flash messages and the flash directive is a subscriber to flash messages.  The flash directive leverages the Twitter Bootstrap Alert component.
+A flash service and directive for setting and displaying flash messages.  Specifically, the flash service is a publisher of flash messages and the flash directive is a subscriber to flash messages.  The flash directive leverages the Twitter Bootstrap Alert component.
 
 ### Usage
 
