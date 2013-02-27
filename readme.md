@@ -1,6 +1,6 @@
 # angular-common
 
-Some of my common Angular JS directives and services that I reuse across my various projects.
+Some common Angular JS directives and services that I reuse across my various projects.
 
 ## Flash
 
@@ -9,8 +9,8 @@ A flash service and directive for setting and displaying flash messages.  Specif
 ### Usage
 
 ```html
-<!-- Bootstrap alert -->
-<div class="alert" style="display:none;" flash>
+<!-- Subscribe to flash messages. -->
+<div flash class="alert" style="display:none;">
     <strong class="alert-heading">{{flash.heading}}</strong>
     <span class="alert-message">{{flash.message}}</span>
 </div>
@@ -20,7 +20,7 @@ A flash service and directive for setting and displaying flash messages.  Specif
 ```javascript
 
 var FooController = function(flash){
-    // Send a success flash
+    // Publish a success flash
     flash.success = 'Do it live!';
 };
 
