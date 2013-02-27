@@ -59,7 +59,7 @@ The `startInterval` service provides an Angular aware interval.
 
 ```javascript
 
-var FooController = function ($scope, startInterval, SomeFeed) {
+var FooController = function ($scope, startInterval, SomeFeed, $timeout) {
 
     $scope.items = [];
     $scope.count = 0;
