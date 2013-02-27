@@ -48,7 +48,7 @@ subscribe:
 Load the `angular-common.bootstrap-directives` and the `angular-common.flash-service` modules in your app.
 
 ```javascript
-    angular.module('app', ['angular-common.bootstrap-directives', 'angular-common.flash-service']);
+angular.module('app', ['angular-common.bootstrap-directives', 'angular-common.flash-service']);
 ```
 
 ## startInterval
@@ -104,5 +104,5 @@ FooController.$inject = ['$scope', 'startInterval', 'SomeFeed', '$timeout'];
 Load the `angular-common.interval-service` module in your app.
 
 ```javascript
-    angular.module('app', ['angular-common.interval-service']);
+angular.module('app', ['angular-common.interval-service']);
 ```
