@@ -98,3 +98,11 @@ var FooController = function ($scope, startInterval, SomeFeed) {
 FooController.$inject = ['$scope', 'startInterval', 'SomeFeed', '$timeout'];
 
 ```
+
+### Installation
+
+Load the `angular-common.interval-service` module in your app.
+
+```javascript
+    angular.module('app', ['angular-common.interval-service']);
+```
