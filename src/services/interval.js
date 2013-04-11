@@ -13,21 +13,26 @@
             }
         }
 
-        this.__defineGetter__("run", function () {
-            return _run;
+        Object.defineProperty(this, 'run', {
+            get: function () {
+                return _run;
+            },
+            set: function (run) {
+                _run = run;
+                $timeout(_poll, delay);
+            }
         });
 
-        this.__defineSetter__("run", function (run) {
-            _run = run;
-            $timeout(_poll, delay);
+        Object.defineProperty(this, 'count', {
+            get: function () {
+                return _count;
+            }
         });
 
-        this.__defineGetter__("count", function () {
-            return _count;
-        });
-
-        this.__defineGetter__("elapsed", function () {
-            return _count * delay;
+        Object.defineProperty(this, 'elapsed', {
+            get: function () {
+                return _count * delay;
+            }
         });
     };
 

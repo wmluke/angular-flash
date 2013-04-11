@@ -1,4 +1,4 @@
-/*! angular-common - v0.0.1 - 2013-02-15
+/*! angular-common - v0.1.0 - 2013-04-10
  * https://github.com/wmluke/angular-common
  * Copyright (c) 2013 William Bunselmeyer
  * License http://www.apache.org/licenses/LICENSE-2.0.html */
@@ -17,49 +17,52 @@
             _subscribers.push(subscriber);
         };
 
-        this.__defineGetter__("success", function () {
-            return _success;
+        Object.defineProperty(this, 'success', {
+            get: function () {
+                return _success;
+            },
+            set: function (message) {
+                _success = message;
+                _.each(_subscribers, function (subscriber) {
+                    subscriber(message, "success");
+                });
+            }
         });
 
-        this.__defineSetter__("success", function (message) {
-            _success = message;
-            _.each(_subscribers, function (subscriber) {
-                subscriber(message, "success");
-            });
+        Object.defineProperty(this, 'info', {
+            get: function () {
+                return _info;
+            },
+            set: function (message) {
+                _info = message;
+                _.each(_subscribers, function (subscriber) {
+                    subscriber(message, "info");
+                });
+            }
         });
 
-        this.__defineGetter__("info", function () {
-            return _info;
+        Object.defineProperty(this, 'warn', {
+            get: function () {
+                return _warn;
+            },
+            set: function (message) {
+                _warn = message;
+                _.each(_subscribers, function (subscriber) {
+                    subscriber(message, "warn");
+                });
+            }
         });
 
-        this.__defineSetter__("info", function (message) {
-            _info = message;
-            _.each(_subscribers, function (subscriber) {
-                subscriber(message, "info");
-            });
-        });
-
-        this.__defineGetter__("warn", function () {
-            return _warn;
-        });
-
-        this.__defineSetter__("warn", function (message) {
-            _warn = message;
-            _.each(_subscribers, function (subscriber) {
-                subscriber(message, "warn");
-            });
-        });
-
-
-        this.__defineGetter__("error", function () {
-            return _error;
-        });
-
-        this.__defineSetter__("error", function (message) {
-            _error = message;
-            _.each(_subscribers, function (subscriber) {
-                subscriber(message, "error");
-            });
+        Object.defineProperty(this, 'error', {
+            get: function () {
+                return _error;
+            },
+            set: function (message) {
+                _error = message;
+                _.each(_subscribers, function (subscriber) {
+                    subscriber(message, "error");
+                });
+            }
         });
     };
 
@@ -87,21 +90,26 @@
             }
         }
 
-        this.__defineGetter__("run", function () {
-            return _run;
+        Object.defineProperty(this, 'run', {
+            get: function () {
+                return _run;
+            },
+            set: function (run) {
+                _run = run;
+                $timeout(_poll, delay);
+            }
         });
 
-        this.__defineSetter__("run", function (run) {
-            _run = run;
-            $timeout(_poll, delay);
+        Object.defineProperty(this, 'count', {
+            get: function () {
+                return _count;
+            }
         });
 
-        this.__defineGetter__("count", function () {
-            return _count;
-        });
-
-        this.__defineGetter__("elapsed", function () {
-            return _count * delay;
+        Object.defineProperty(this, 'elapsed', {
+            get: function () {
+                return _count * delay;
+            }
         });
     };
 

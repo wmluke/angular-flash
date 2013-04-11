@@ -12,49 +12,52 @@
             _subscribers.push(subscriber);
         };
 
-        this.__defineGetter__("success", function () {
-            return _success;
+        Object.defineProperty(this, 'success', {
+            get: function () {
+                return _success;
+            },
+            set: function (message) {
+                _success = message;
+                _.each(_subscribers, function (subscriber) {
+                    subscriber(message, "success");
+                });
+            }
         });
 
-        this.__defineSetter__("success", function (message) {
-            _success = message;
-            _.each(_subscribers, function (subscriber) {
-                subscriber(message, "success");
-            });
+        Object.defineProperty(this, 'info', {
+            get: function () {
+                return _info;
+            },
+            set: function (message) {
+                _info = message;
+                _.each(_subscribers, function (subscriber) {
+                    subscriber(message, "info");
+                });
+            }
         });
 
-        this.__defineGetter__("info", function () {
-            return _info;
+        Object.defineProperty(this, 'warn', {
+            get: function () {
+                return _warn;
+            },
+            set: function (message) {
+                _warn = message;
+                _.each(_subscribers, function (subscriber) {
+                    subscriber(message, "warn");
+                });
+            }
         });
 
-        this.__defineSetter__("info", function (message) {
-            _info = message;
-            _.each(_subscribers, function (subscriber) {
-                subscriber(message, "info");
-            });
-        });
-
-        this.__defineGetter__("warn", function () {
-            return _warn;
-        });
-
-        this.__defineSetter__("warn", function (message) {
-            _warn = message;
-            _.each(_subscribers, function (subscriber) {
-                subscriber(message, "warn");
-            });
-        });
-
-
-        this.__defineGetter__("error", function () {
-            return _error;
-        });
-
-        this.__defineSetter__("error", function (message) {
-            _error = message;
-            _.each(_subscribers, function (subscriber) {
-                subscriber(message, "error");
-            });
+        Object.defineProperty(this, 'error', {
+            get: function () {
+                return _error;
+            },
+            set: function (message) {
+                _error = message;
+                _.each(_subscribers, function (subscriber) {
+                    subscriber(message, "error");
+                });
+            }
         });
     };
 
