@@ -1,7 +1,7 @@
-/*! angular-common - v0.1.0 - 2013-04-10
- * https://github.com/wmluke/angular-common
- * Copyright (c) 2013 William Bunselmeyer
- * License http://www.apache.org/licenses/LICENSE-2.0.html */
+/*! angular-common - v0.1.1 - 2013-04-10
+* https://github.com/wmluke/angular-common
+* Copyright (c) 2013 William Bunselmeyer 
+* License http://www.apache.org/licenses/LICENSE-2.0.html */
 
 (function (angular, _) {
     'use strict';
