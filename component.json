@@ -2,7 +2,7 @@
     "author": "William Bunselmeyer",
     "name": "angular-common",
     "description": "Angular Tools - Some tools for Angular JS",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "homepage": "https://github.com/wmluke/angular-common",
     "repository": {
         "type": "git",
