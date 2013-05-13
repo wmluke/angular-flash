@@ -1,10 +1,14 @@
-# angular-common
+# angular-flash
 
-Some common Angular JS directives and services that I reuse across my various projects.
+A flash service and directive for setting and displaying flash messages in [Angular JS](http://angularjs.org).  Specifically, the flash service is a publisher of flash messages and the flash directive is a subscriber to flash messages.  The flash directive leverages the Twitter Bootstrap Alert component.
 
-## Flash
+### Installation
 
-A flash service and directive for setting and displaying flash messages.  Specifically, the flash service is a publisher of flash messages and the flash directive is a subscriber to flash messages.  The flash directive leverages the Twitter Bootstrap Alert component.
+Load the `angular-flash.service` and the `angular-flash.bootstrap-directive` modules in your app.
+
+```javascript
+angular.module('app', ['angular-flash.service', 'angular-flash.bootstrap-directive']);
+```
 
 ### Usage
 
@@ -42,67 +46,3 @@ Set and get flash messages with the following flash properties...
 
 subscribe:
     Register a subscriber function to be notified of flash messages.
-
-### Installation
-
-Load the `angular-common.bootstrap-directives` and the `angular-common.flash-service` modules in your app.
-
-```javascript
-angular.module('app', ['angular-common.bootstrap-directives', 'angular-common.flash-service']);
-```
-
-## startInterval
-
-The `startInterval` service provides an Angular aware interval.
-
-### Usage
-
-```javascript
-
-var FooController = function ($scope, startInterval, SomeFeed, $timeout) {
-
-    $scope.items = [];
-    $scope.count = 0;
-    $scope.elapsed = 0;
-
-    /**
-     * Create and start an interval to load feed items every 2 seconds.
-     */
-    var _interval = startInterval(function (count, elapsed) {
-        SomeFeed.findAll()
-            .success(function (items) {
-                // Angular ready: No need for $apply
-                $scope.items = items;
-                $scope.count = count;
-                $scope.elapsed = elapsed;
-            })
-            .error(function () {
-                // Stop the interval and restart it in 5 seconds.
-                _interval.run = false;
-                $timeout(function () {
-                    _interval.run = true;
-                }, 5000);
-            });
-    }, 2000);
-
-    /**
-     * Be sure to stop the interval when the current scope is destroyed.
-     */
-    $scope.$on('$destroy', function () {
-        if (_interval && _interval.run) {
-            _interval.run = false;
-        }
-    });
-};
-
-FooController.$inject = ['$scope', 'startInterval', 'SomeFeed', '$timeout'];
-
-```
-
-### Installation
-
-Load the `angular-common.interval-service` module in your app.
-
-```javascript
-angular.module('app', ['angular-common.interval-service']);
-```
