@@ -39,5 +39,8 @@
         "grunt-exec": "~0.4.0",
         "jshint": "~1.1.0",
         "grunt-contrib-concat": "~0.3.0"
-    }
+    },
+    "keywords": [
+        "angular", "flash"
+    ]
 }
