@@ -1,4 +1,6 @@
-(function (angular, _) {
+/* global angular */
+
+(function () {
     'use strict';
 
     var Flash = function () {
@@ -18,8 +20,8 @@
             },
             set: function (message) {
                 _success = message;
-                _.each(_subscribers, function (subscriber) {
-                    subscriber(message, "success");
+                angular.forEach(_subscribers, function (subscriber) {
+                    subscriber(message, 'success');
                 });
             }
         });
@@ -30,8 +32,8 @@
             },
             set: function (message) {
                 _info = message;
-                _.each(_subscribers, function (subscriber) {
-                    subscriber(message, "info");
+                angular.forEach(_subscribers, function (subscriber) {
+                    subscriber(message, 'info');
                 });
             }
         });
@@ -42,8 +44,8 @@
             },
             set: function (message) {
                 _warn = message;
-                _.each(_subscribers, function (subscriber) {
-                    subscriber(message, "warn");
+                angular.forEach(_subscribers, function (subscriber) {
+                    subscriber(message, 'warn');
                 });
             }
         });
@@ -54,8 +56,8 @@
             },
             set: function (message) {
                 _error = message;
-                _.each(_subscribers, function (subscriber) {
-                    subscriber(message, "error");
+                angular.forEach(_subscribers, function (subscriber) {
+                    subscriber(message, 'error');
                 });
             }
         });
@@ -65,8 +67,6 @@
         return new Flash();
     }
 
+    angular.module('angular-flash.service', []).factory('flash', [flashProvider]);
 
-    angular.module('angular-common.flash-service', [])
-        .factory('flash', [flashProvider]);
-
-}(window.angular || {}, window._ || {}));
+}());

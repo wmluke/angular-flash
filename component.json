@@ -1,26 +1,24 @@
 {
+    "name": "angular-flash",
+    "description": "Flash messages for Angular Js",
+    "version": "0.1.0",
     "author": "William Bunselmeyer",
-    "name": "angular-common",
-    "description": "Angular Tools - Some tools for Angular JS",
-    "version": "0.1.1",
-    "homepage": "https://github.com/wmluke/angular-common",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/wmluke/angular-common.git"
-    },
     "main": [
-        "./dist/angular-common.js",
-        "./dist/angular-common.min.js"
+        "dist/angular-flash.min.js"
+    ],
+    "ignore": [
+        "components",
+        "test",
+        ".jshintrc",
+        "karma.conf.js",
+        "karma-e2e.conf.js",
+        "Gruntfile.js"
     ],
     "dependencies": {
-        "underscore": "1.4.3",
-        "underscore.string": "2.3.1",
-        "moment": "1.7.2",
-        "jquery": "~1.9.1",
-        "bootstrap": "~2.3.1",
-        "bootstrap-datepicker": "e13a07cdafb9c948f79729e87effb52af8465c41",
-        "marked": "0.2.6",
-        "codemirror": null,
-        "angular.js": "http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.js"
+        "angular": "~1.0.5"
+    },
+    "devDependencies": {
+        "angular-mocks": "~1.0.6",
+        "angular-scenario": "~1.0.6"
     }
 }

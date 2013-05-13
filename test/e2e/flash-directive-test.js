@@ -3,7 +3,7 @@ describe('flash-directive', function () {
 
     var _flash, scope, $sandbox, $compile, $timeout;
 
-    beforeEach(module('angular-common.bootstrap-directives'));
+    beforeEach(module('angular-flash.bootstrap-directive'));
 
     beforeEach(inject(function (flash) {
         _flash = flash;
@@ -31,12 +31,12 @@ describe('flash-directive', function () {
 
     it('meh', function () {
 
-        var template = ['<div flash class="alert" style="display: none;">',
-                        '<strong class="alert-heading">{{flash.heading}}</strong>',
-                        '<span class="alert-message">{{flash.message}}</span>',
-                        '</div>'];
+//        var template = ['<div flash class="alert" style="display: none;">',
+//                        '<strong class="alert-heading">{{flash.heading}}</strong>',
+//                        '<span class="alert-message">{{flash.message}}</span>',
+//                        '</div>'];
 
-        var elm = compileDirective(template.join('\n'));
+        //var elm = compileDirective(template.join('\n'));
 
         expect(element('alert-error').count()).toBe(1);
         expect(binding('flash.heading')).toBe(null);

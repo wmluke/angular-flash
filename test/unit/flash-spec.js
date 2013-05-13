@@ -3,7 +3,7 @@ describe('FlashService', function () {
 
     var _flash;
 
-    beforeEach(module('angular-common.flash-service'));
+    beforeEach(module('angular-flash.service'));
 
     beforeEach(inject(function (flash) {
         _flash = flash;
