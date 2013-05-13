@@ -2,16 +2,15 @@
     "name": "angular-flash",
     "description": "Flash messages for Angular Js",
     "version": "0.1.1",
-    "author": "William Bunselmeyer",
     "main": [
-        "dist/angular-flash.min.js"
+        "dist/angular-flash.min.js",
+        "dist/angular-flash.js"
     ],
     "ignore": [
         "components",
         "test",
         ".jshintrc",
         "karma.conf.js",
-        "karma-e2e.conf.js",
         "Gruntfile.js"
     ],
     "dependencies": {
