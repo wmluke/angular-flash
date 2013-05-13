@@ -4,7 +4,13 @@ A flash service and directive for setting and displaying flash messages in [Angu
 
 ## Installation
 
-Load the `angular-flash.service` and the `angular-flash.bootstrap-directive` modules in your app.
+Download [angular-flash.min.js](https://github.com/wmluke/angular-flash/blob/master/dist/angular-flash.min.js) or install with bower.
+
+```bash
+$ bower install angular-flash --save
+```
+
+Load the `angular-flash.service` and the `angular-flash.flash-alert-directive` modules in your app.
 
 ```javascript
 angular.module('app', ['angular-flash.service', 'angular-flash.flash-alert-directive']);
