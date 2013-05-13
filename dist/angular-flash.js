@@ -1,5 +1,5 @@
 /**! 
- * @license angular-flash v0.1.0
+ * @license angular-flash v0.1.1
  * Copyright (c) 2013 William L. Bunselmeyer. https://github.com/wmluke/angular-flash
  * License: MIT
  */
@@ -87,38 +87,35 @@
         return (/^\s*$/).test(str);
     }
 
-
-    function flashDirective(flash, $timeout) {
-        return function ($scope, element) {
+    function flashAlertDirective(flash, $timeout) {
+        return function ($scope, element, attr) {
             $scope.flash = {};
 
-            var headings = {
-                success: 'Congrats!',
-                info: 'FYI:',
-                warn: 'Heads up!',
-                error: 'Oh Snap!'
-            };
-
             function hide(type) {
-                element.fadeOut('slow', 'linear', function () {
-                    $scope.flash = {};
-                    element.removeClass('alert-' + type);
-                });
+                $scope.flash = {};
+                element.removeClass('alert-' + type);
+                if (!isBlank(attr.activeClass)) {
+                    element.removeClass(attr.activeClass);
+                }
             }
 
             function show(message, type) {
-                $scope.flash.heading = headings[type];
+                $scope.flash.type = type;
                 $scope.flash.message = message;
                 element.addClass('alert-' + type);
+                if (!isBlank(attr.activeClass)) {
+                    element.addClass(attr.activeClass);
+                }
 
-                element.fadeIn('slow', 'linear', function () {
-                    $timeout(function () {
-                        hide(type);
-                    }, 5000);
-                });
+                $timeout(function () {
+                    hide(type);
+                }, 5000);
             }
 
             flash.subscribe(function (message, type) {
+                if (!isBlank(attr.flashAlert) && attr.flashAlert !== type) {
+                    return;
+                }
                 if (isBlank(message)) {
                     hide(type);
                 } else {
@@ -128,8 +125,7 @@
         };
     }
 
-
-    angular.module('angular-flash.bootstrap-directive', ['angular-flash.service'])
-        .directive('flash', ['flash', '$timeout', flashDirective]);
+    angular.module('angular-flash.flash-alert-directive', ['angular-flash.service'])
+        .directive('flashAlert', ['flash', '$timeout', flashAlertDirective]);
 
 }());

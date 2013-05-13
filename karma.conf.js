@@ -8,10 +8,11 @@ basePath = '';
 files = [
     JASMINE,
     JASMINE_ADAPTER,
+    'components/jquery/jquery.js',
     'components/angular/angular.js',
     'components/angular-mocks/angular-mocks.js',
     'src/**/*.js',
-    'test/unit/*-spec.js'
+    'test/unit/**/*-spec.js'
 ];
 
 //preprocessors = {

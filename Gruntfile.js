@@ -53,7 +53,7 @@ module.exports = function (grunt) {
             boots: {
                 src: [
                     'src/services/flash-service.js',
-                    'src/directives/bootstrap-flash-directive.js'
+                    'src/directives/flash-alert-directive.js'
                 ],
                 dest: 'dist/<%= pkg.name %>.js'
             }
@@ -80,15 +80,7 @@ module.exports = function (grunt) {
                 tasks: ['uglify']
             }
         },
-        bumpup: ['package.json', 'component.json'],
-        exec: {
-            release_start: {
-                command: 'git flow release start <%= pkg.version %>'
-            },
-            release_finish: {
-                command: 'git flow release finish <%= pkg.version %>'
-            }
-        }
+        bumpup: ['package.json', 'component.json']
     });
 
     grunt.registerTask('bump', function (type) {
