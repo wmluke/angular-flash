@@ -10,6 +10,8 @@
         "components",
         "test",
         ".jshintrc",
+        "src/.jshintrc",
+        ".travis.yml",
         "karma.conf.js",
         "Gruntfile.js"
     ],

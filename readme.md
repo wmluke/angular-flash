@@ -40,26 +40,28 @@ Use the `flash-alert` directive to subscribe to flash messages...
 
 ```html
 <!-- Subscribe to success flash messages. -->
-<div flash-alert="success" flash-alert-active="in" class="alert fade" style="display:none;">
+<div flash-alert="success" active-class="in" class="alert fade">
     <strong class="alert-heading">Congrats!</strong>
     <span class="alert-message">{{flash.message}}</span>
 </div>
 
 <!-- Subscribe to error flash messages. -->
-<div flash-alert="error" class="alert" style="display:none;">
+<div flash-alert="error" active-class="in" class="alert fade">
     <strong class="alert-heading">Boo!</strong>
     <span class="alert-message">{{flash.message}}</span>
 </div>
 
 <!-- Subscribe to all flash messages. -->
-<div flash-alert class="alert" style="display:none;">
+<div flash-alert active-class="in" class="alert fade">
     <strong class="alert-heading">Boo!</strong>
     <span class="alert-message">{{flash.message}}</span>
 </div>
 
 ```
 
-When a flash message is published, the `flash-alert` directive will add a class of the form `alert-<type>`, add classes specified in `flash-alert-active`, and then show the element for 5 seconds.
+When a flash message is published, the `flash-alert` directive will add a class of the form `alert-<type>` and also add classes specified in `active-class`.  Then after 5 seconds it will remove them.
+
+The example above leverages Twitter Bootstrap CSS3 transitions: `fade` and `in`.
 
 ### Flash Service API
 
