@@ -13,6 +13,7 @@ module.exports = function (grunt) {
                 'karma:phantom'
             ],
             'package': [
+                'concat',
                 'uglify'
             ],
             'integration-test': [],
@@ -58,12 +59,12 @@ module.exports = function (grunt) {
         concat: {
             options: {
                 banner: ['/**! ',
-                    ' * @license <%= pkg.name %> v<%= pkg.version %>',
-                    ' * Copyright (c) 2013 <%= pkg.author.name %>. <%= pkg.homepage %>',
-                    ' * License: MIT',
-                    ' */\n'].join('\n')
+                         ' * @license <%= pkg.name %> v<%= pkg.version %>',
+                         ' * Copyright (c) 2013 <%= pkg.author.name %>. <%= pkg.homepage %>',
+                         ' * License: MIT',
+                         ' */\n'].join('\n')
             },
-            boots: {
+            main: {
                 src: [
                     'src/services/flash-service.js',
                     'src/directives/flash-alert-directive.js'
@@ -74,15 +75,15 @@ module.exports = function (grunt) {
         uglify: {
             options: {
                 banner: ['/**! ',
-                    ' * @license <%= pkg.name %> v<%= pkg.version %>',
-                    ' * Copyright (c) 2013 <%= pkg.author.name %>. <%= pkg.homepage %>',
-                    ' * License: MIT',
-                    ' */\n'].join('\n')
+                         ' * @license <%= pkg.name %> v<%= pkg.version %>',
+                         ' * Copyright (c) 2013 <%= pkg.author.name %>. <%= pkg.homepage %>',
+                         ' * License: MIT',
+                         ' */\n'].join('\n')
             },
             main: {
                 files: {
                     'dist/<%= pkg.name %>.min.js': [
-                        '<%= concat.boots.dest %>'
+                        '<%= concat.main.dest %>'
                     ]
                 }
             }
@@ -93,7 +94,7 @@ module.exports = function (grunt) {
                 tasks: ['uglify']
             }
         },
-        bumpup: ['package.json', 'component.json']
+        bumpup: ['package.json', 'bower.json']
     });
 
     // load all grunt tasks
