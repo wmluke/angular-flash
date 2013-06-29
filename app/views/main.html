@@ -1,0 +1,55 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="/"><i class="icon-bolt"></i> angular-flash</a>
+            <button class="btn btn-info" ng-click="info()"><i class="icon-info-sign"></i> Info</button>
+            <button class="btn btn-warning" ng-click="warn()"><i class="icon-warning-sign"></i> Warning</button>
+            <button class="btn btn-success" ng-click="success()"><i class="icon-ok-sign"></i> Success</button>
+            <button class="btn btn-danger" ng-click="error()"><i class="icon-exclamation-sign"></i> Error</button>
+            <button class="btn btn-primary" ng-click="all()"><i class="icon-flag"></i> All</button>
+        </div>
+    </div>
+</div>
+
+<div class="row row-alert">
+    <div class="span12">
+        <div flash-alert="info" active-class="in alert" class="fade">
+            <i class="icon-info-sign"></i>
+            <strong class="alert-heading">Ahem...</strong>
+            <span class="alert-message">{{flash.message}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row row-alert">
+    <div class="span12">
+        <div flash-alert="warn" active-class="in alert" class="fade">
+            <i class="icon-warning-sign"></i>
+            <strong class="alert-heading">Not so good.</strong>
+            <span class="alert-message">{{flash.message}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row row-alert">
+    <div class="span12">
+        <div flash-alert="success" active-class="in alert" class="fade">
+            <i class="icon-ok-sign"></i>
+            <strong class="alert-heading">Nice work!</strong>
+            <span class="alert-message">{{flash.message}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row row-alert">
+    <div class="span12">
+        <div flash-alert="error" active-class="in alert" class="fade">
+            <i class="icon-exclamation-sign"></i>
+            <strong class="alert-heading">Yikes!</strong>
+            <span class="alert-message">{{flash.message}}</span>
+        </div>
+    </div>
+</div>
+
+
+

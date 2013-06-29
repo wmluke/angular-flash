@@ -1,8 +1,26 @@
+'use strict';
+var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
+var mountFolder = function (connect, dir) {
+    return connect.static(require('path').resolve(dir));
+};
+
+// configurable paths
+var yeomanConfig = {
+    app: 'app',
+    src: 'src',
+    dist: 'dist'
+};
+
+try {
+    yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
+} catch (e) {
+}
+
 module.exports = function (grunt) {
-    'use strict';
 
     // Project configuration.
     grunt.initConfig({
+        yeoman: yeomanConfig,
         pkg: grunt.file.readJSON('package.json'),
         lifecycle: {
             validate: [
@@ -59,10 +77,10 @@ module.exports = function (grunt) {
         concat: {
             options: {
                 banner: ['/**! ',
-                         ' * @license <%= pkg.name %> v<%= pkg.version %>',
-                         ' * Copyright (c) 2013 <%= pkg.author.name %>. <%= pkg.homepage %>',
-                         ' * License: MIT',
-                         ' */\n'].join('\n')
+                    ' * @license <%= pkg.name %> v<%= pkg.version %>',
+                    ' * Copyright (c) 2013 <%= pkg.author.name %>. <%= pkg.homepage %>',
+                    ' * License: MIT',
+                    ' */\n'].join('\n')
             },
             main: {
                 src: [
@@ -75,10 +93,10 @@ module.exports = function (grunt) {
         uglify: {
             options: {
                 banner: ['/**! ',
-                         ' * @license <%= pkg.name %> v<%= pkg.version %>',
-                         ' * Copyright (c) 2013 <%= pkg.author.name %>. <%= pkg.homepage %>',
-                         ' * License: MIT',
-                         ' */\n'].join('\n')
+                    ' * @license <%= pkg.name %> v<%= pkg.version %>',
+                    ' * Copyright (c) 2013 <%= pkg.author.name %>. <%= pkg.homepage %>',
+                    ' * License: MIT',
+                    ' */\n'].join('\n')
             },
             main: {
                 files: {
@@ -92,9 +110,43 @@ module.exports = function (grunt) {
             scripts: {
                 files: ['src/**/*.js'],
                 tasks: ['uglify']
+            },
+            livereload: {
+                files: [
+                    '<%= yeoman.app %>/*.html',
+                    '<%= yeoman.app %>/scrips/*.js',
+                    '<%= yeoman.app %>/scrips/**/*.js',
+                    '<%= yeoman.dist %>/*.js'
+                ],
+                tasks: ['livereload']
             }
         },
-        bumpup: ['package.json', 'bower.json']
+        bumpup: ['package.json', 'bower.json'],
+        connect: {
+            options: {
+                port: 9000,
+                // Change this to '0.0.0.0' to access the server from outside.
+                hostname: 'localhost'
+            },
+            livereload: {
+                options: {
+                    middleware: function (connect) {
+                        return [
+                            lrSnippet,
+                            mountFolder(connect, yeomanConfig.dist),
+                            mountFolder(connect, yeomanConfig.app),
+                            mountFolder(connect, yeomanConfig.src),
+                            mountFolder(connect, 'test')
+                        ];
+                    }
+                }
+            }
+        },
+        open: {
+            server: {
+                url: 'http://localhost:<%= connect.options.port %>'
+            }
+        }
     });
 
     // load all grunt tasks
@@ -104,6 +156,14 @@ module.exports = function (grunt) {
         type = type ? type : 'patch';
         grunt.task.run('bumpup:' + type);
     });
+
+    grunt.registerTask('server', [
+        'package',
+        'livereload-start',
+        'connect:livereload',
+        'open',
+        'regarde'
+    ]);
 
     grunt.registerTask('test-phantom', ['karma:phantom']);
     grunt.registerTask('test-start', ['karma:debug:start']);

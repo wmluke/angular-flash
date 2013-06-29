@@ -11,48 +11,55 @@
     }
 
     function flashAlertDirective(flash, $timeout) {
-        return function ($scope, element, attr) {
-            $scope.flash = {};
+        return {
+            scope: true,
+            link: function ($scope, element, attr) {
+                var handle;
 
-            function removeAlertClasses() {
-                element.removeClass('alert-info');
-                element.removeClass('alert-warn');
-                element.removeClass('alert-error');
-                element.removeClass('alert-success');
-            }
-
-            function hide() {
                 $scope.flash = {};
-                removeAlertClasses();
-                if (!isBlank(attr.activeClass)) {
-                    element.removeClass(attr.activeClass);
+
+                function removeAlertClasses() {
+                    element.removeClass('alert-info');
+                    element.removeClass('alert-warn');
+                    element.removeClass('alert-error');
+                    element.removeClass('alert-success');
                 }
+
+                function hide() {
+                    $scope.flash = {};
+                    removeAlertClasses();
+                    if (!isBlank(attr.activeClass)) {
+                        element.removeClass(attr.activeClass);
+                    }
+                }
+
+                function show(message, type) {
+                    if (handle) {
+                        $timeout.cancel(handle);
+                    }
+
+                    $scope.flash.type = type;
+                    $scope.flash.message = message;
+                    removeAlertClasses();
+                    element.addClass('alert-' + type);
+                    if (!isBlank(attr.activeClass)) {
+                        element.addClass(attr.activeClass);
+                    }
+
+                    handle = $timeout(hide, 5000);
+                }
+
+                flash.subscribe(function (message, type) {
+                    if (!isBlank(attr.flashAlert) && attr.flashAlert !== type) {
+                        return;
+                    }
+                    if (isBlank(message)) {
+                        hide(type);
+                    } else {
+                        show(message, type);
+                    }
+                });
             }
-
-            function show(message, type) {
-                $scope.flash.type = type;
-                $scope.flash.message = message;
-                removeAlertClasses();
-                element.addClass('alert-' + type);
-                if (!isBlank(attr.activeClass)) {
-                    element.addClass(attr.activeClass);
-                }
-
-                $timeout(function () {
-                    hide(type);
-                }, 5000);
-            }
-
-            flash.subscribe(function (message, type) {
-                if (!isBlank(attr.flashAlert) && attr.flashAlert !== type) {
-                    return;
-                }
-                if (isBlank(message)) {
-                    hide(type);
-                } else {
-                    show(message, type);
-                }
-            });
         };
     }
 

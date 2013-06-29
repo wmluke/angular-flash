@@ -21,6 +21,10 @@
   "devDependencies": {
     "jquery": "~2.0.0",
     "angular-mocks": "~1.0.6",
-    "angular-scenario": "~1.0.6"
+    "angular-scenario": "~1.0.6",
+    "json3": "~3.2.4",
+    "es5-shim": "~2.0.8",
+    "bootstrap": "~2.3.2",
+    "font-awesome": "~3.2.1"
   }
 }
