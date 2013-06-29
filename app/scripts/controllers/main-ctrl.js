@@ -26,8 +26,7 @@
             flash.error = 'error message';
         };
 
-        // Workaround until I fix https://github.com/wmluke/angular-flash/issues/2
-        $timeout($scope.all, 100);
+        $scope.all();
     };
 
     angular.module('App.main-ctrl', [])

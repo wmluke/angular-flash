@@ -10,7 +10,6 @@ describe('FlashService', function () {
     }));
 
     it('it should send flash messages to subscribers', function () {
-
         var subscriber1 = jasmine.createSpy('subscriber1');
         var subscriber2 = jasmine.createSpy('subscriber2');
 
@@ -32,6 +31,26 @@ describe('FlashService', function () {
         expect(subscriber2).toHaveBeenCalledWith(':info-message', 'info');
         expect(subscriber2).toHaveBeenCalledWith(':success-message', 'success');
 
+    });
+
+    it('the flash getters should return the right message', function () {
+        _flash.error = ':error-message';
+        _flash.warn = ':warn-message';
+        _flash.info = ':info-message';
+        _flash.success = ':success-message';
+
+        expect(_flash.error).toBe(':error-message');
+        expect(_flash.warn).toBe(':warn-message');
+        expect(_flash.info).toBe(':info-message');
+        expect(_flash.success).toBe(':success-message');
+    });
+
+    it('flash.type and flash.message should return the last flash', function () {
+        _flash.error = ':error-message';
+        _flash.warn = ':warn-message';
+
+        expect(_flash.type).toBe('warn');
+        expect(_flash.message).toBe(':warn-message');
     });
 
 });

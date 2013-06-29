@@ -49,16 +49,20 @@
                     handle = $timeout(hide, 5000);
                 }
 
-                flash.subscribe(function (message, type) {
-                    if (!isBlank(attr.flashAlert) && attr.flashAlert !== type) {
-                        return;
-                    }
-                    if (isBlank(message)) {
-                        hide(type);
-                    } else {
-                        show(message, type);
-                    }
-                });
+                flash.subscribe(show, attr.flashAlert);
+
+                /**
+                 * Fixes timing issues: display the last flash message sent before this directive subscribed.
+                 */
+
+                if (attr.flashAlert && flash[attr.flashAlert]) {
+                    show(flash[attr.flashAlert], attr.flashAlert);
+                }
+
+                if (!attr.flashAlert && flash.message) {
+                    show(flash.message, flash.type);
+                }
+
             }
         };
     }

@@ -9,14 +9,36 @@
     'use strict';
 
     var Flash = function () {
+        var _self = this;
         var _subscribers = [];
         var _success;
         var _info;
         var _warn;
         var _error;
+        var _type;
 
-        this.subscribe = function (subscriber) {
-            _subscribers.push(subscriber);
+        function _notify(type, message) {
+            angular.forEach(_subscribers, function (subscriber) {
+                if (!subscriber.type || subscriber.type === type) {
+                    subscriber.cb(message, type);
+                }
+            });
+        }
+
+        this.clean = function () {
+            _subscribers = [];
+            _success = null;
+            _info = null;
+            _warn = null;
+            _error = null;
+            _type = null;
+        };
+
+        this.subscribe = function (subscriber, type) {
+            _subscribers.push({
+                cb: subscriber,
+                type: type
+            });
         };
 
         Object.defineProperty(this, 'success', {
@@ -25,9 +47,8 @@
             },
             set: function (message) {
                 _success = message;
-                angular.forEach(_subscribers, function (subscriber) {
-                    subscriber(message, 'success');
-                });
+                _type = 'success';
+                _notify(_type, message);
             }
         });
 
@@ -37,9 +58,8 @@
             },
             set: function (message) {
                 _info = message;
-                angular.forEach(_subscribers, function (subscriber) {
-                    subscriber(message, 'info');
-                });
+                _type = 'info';
+                _notify(_type, message);
             }
         });
 
@@ -49,9 +69,8 @@
             },
             set: function (message) {
                 _warn = message;
-                angular.forEach(_subscribers, function (subscriber) {
-                    subscriber(message, 'warn');
-                });
+                _type = 'warn';
+                _notify(_type, message);
             }
         });
 
@@ -61,9 +80,20 @@
             },
             set: function (message) {
                 _error = message;
-                angular.forEach(_subscribers, function (subscriber) {
-                    subscriber(message, 'error');
-                });
+                _type = 'error';
+                _notify(_type, message);
+            }
+        });
+
+        Object.defineProperty(this, 'type', {
+            get: function () {
+                return _type;
+            }
+        });
+
+        Object.defineProperty(this, 'message', {
+            get: function () {
+                return _type ? _self[_type] : null;
             }
         });
     };
@@ -126,16 +156,20 @@
                     handle = $timeout(hide, 5000);
                 }
 
-                flash.subscribe(function (message, type) {
-                    if (!isBlank(attr.flashAlert) && attr.flashAlert !== type) {
-                        return;
-                    }
-                    if (isBlank(message)) {
-                        hide(type);
-                    } else {
-                        show(message, type);
-                    }
-                });
+                flash.subscribe(show, attr.flashAlert);
+
+                /**
+                 * Fixes timing issues: display the last flash message sent before this directive subscribed.
+                 */
+
+                if (attr.flashAlert && flash[attr.flashAlert]) {
+                    show(flash[attr.flashAlert], attr.flashAlert);
+                }
+
+                if (!attr.flashAlert && flash.message) {
+                    show(flash.message, flash.type);
+                }
+
             }
         };
     }
