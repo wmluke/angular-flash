@@ -1,5 +1,5 @@
 /**! 
- * @license angular-flash v0.1.3
+ * @license angular-flash v0.1.4
  * Copyright (c) 2013 William L. Bunselmeyer. https://github.com/wmluke/angular-flash
  * License: MIT
  */
@@ -91,9 +91,16 @@
         return function ($scope, element, attr) {
             $scope.flash = {};
 
-            function hide(type) {
+            function removeAlertClasses() {
+                element.removeClass('alert-info');
+                element.removeClass('alert-warn');
+                element.removeClass('alert-error');
+                element.removeClass('alert-success');
+            }
+
+            function hide() {
                 $scope.flash = {};
-                element.removeClass('alert-' + type);
+                removeAlertClasses();
                 if (!isBlank(attr.activeClass)) {
                     element.removeClass(attr.activeClass);
                 }
@@ -102,6 +109,7 @@
             function show(message, type) {
                 $scope.flash.type = type;
                 $scope.flash.message = message;
+                removeAlertClasses();
                 element.addClass('alert-' + type);
                 if (!isBlank(attr.activeClass)) {
                     element.addClass(attr.activeClass);

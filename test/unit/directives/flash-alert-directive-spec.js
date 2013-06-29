@@ -98,4 +98,48 @@ describe('flash-alert-directive', function () {
 
     }));
 
+    it('should only display the most recent flash message', inject(function ($rootScope, $compile, $timeout, flash) {
+        var template = [
+            '<div flash-alert active-class="in" class="alert fade" style="display: none;">',
+            '<strong class="alert-heading">{{flash.type}}</strong>',
+            '<span class="alert-message">{{flash.message}}</span>',
+            '</div>'
+        ];
+
+        var element = angular.element(template.join('\n'));
+        $compile(element)($rootScope);
+        $rootScope.$digest();
+
+        expect(element.find('.alert-heading').text()).toBe('');
+        expect(element.find('.alert-message').text()).toBe('');
+        expect(element.hasClass('alert-error')).toBe(false);
+        expect(element.hasClass('alert-success')).toBe(false);
+        expect(element.hasClass('alert-info')).toBe(false);
+        expect(element.hasClass('alert-warning')).toBe(false);
+        expect(element.hasClass('in')).toBe(false);
+
+        flash.info = ':info-message';
+        flash.success = ':success-message';
+        $rootScope.$digest();
+
+        expect(element.find('.alert-heading').text()).toBe('success');
+        expect(element.find('.alert-message').text()).toBe(':success-message');
+        expect(element.hasClass('alert-error')).toBe(false);
+        expect(element.hasClass('alert-success')).toBe(true);
+        expect(element.hasClass('alert-info')).toBe(false);
+        expect(element.hasClass('alert-warning')).toBe(false);
+        expect(element.hasClass('in')).toBe(true);
+
+        $timeout.flush();
+
+        expect(element.find('.alert-heading').text()).toBe('');
+        expect(element.find('.alert-message').text()).toBe('');
+        expect(element.hasClass('alert-error')).toBe(false);
+        expect(element.hasClass('alert-success')).toBe(false);
+        expect(element.hasClass('alert-info')).toBe(false);
+        expect(element.hasClass('alert-warning')).toBe(false);
+        expect(element.hasClass('in')).toBe(false);
+
+    }));
+
 });
