@@ -75,5 +75,38 @@ Set and get flash messages with the following flash properties...
 
 #### Methods
 
-subscribe:
-    Register a subscriber callback function to be notified of flash messages.  The subscriber function has two arguments: `message` and `type`.
+##### subscribe(listener, [type])
+Register a subscriber callback function to be notified of flash messages.  The subscriber function has two arguments: `message` and `type`.
+
+##### clean()
+Clear all subscribers and flash messages.
+
+## Contributing
+
+### Prerequisites
+
+The project requires [Bower](http://bower.io), [Grunt](http://gruntjs.com), and [PhantomJS](http://phantomjs.org).  Once you have installed them, you can build, test, and run the project.
+
+### Build & Test
+
+To build and run tests, run either...
+
+```bash
+$ make install
+```
+
+or
+
+```bash
+$ npm install
+$ bower install
+$ grunt install
+```
+
+### Demo & Develop
+
+To run a live demo or do some hackery, run...
+
+```bash
+$ grunt server
+```
