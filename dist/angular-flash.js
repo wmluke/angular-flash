@@ -1,5 +1,5 @@
 /**! 
- * @license angular-flash v0.1.4
+ * @license angular-flash v0.1.5
  * Copyright (c) 2013 William L. Bunselmeyer. https://github.com/wmluke/angular-flash
  * License: MIT
  */
@@ -124,6 +124,10 @@
                 var handle;
 
                 $scope.flash = {};
+
+                $scope.$on('$destroy', function () {
+                    flash.clean();
+                });
 
                 function removeAlertClasses() {
                     element.removeClass('alert-info');

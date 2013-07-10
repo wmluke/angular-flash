@@ -18,6 +18,10 @@
 
                 $scope.flash = {};
 
+                $scope.$on('$destroy', function () {
+                    flash.clean();
+                });
+
                 function removeAlertClasses() {
                     element.removeClass('alert-info');
                     element.removeClass('alert-warn');

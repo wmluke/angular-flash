@@ -206,4 +206,36 @@ describe('flash-alert-directive', function () {
         expect(element.hasClass('in')).toBe(true);
     }));
 
+    it('should clean the flash service when the directive scope is destroyed', inject(function ($rootScope, $compile, $timeout, flash) {
+        var template = [
+            '<div flash-alert="error" active-class="in" class="alert fade" style="display: none;">',
+            '<strong class="alert-heading">{{flash.type}}</strong>',
+            '<span class="alert-message">{{flash.message}}</span>',
+            '</div>'
+        ];
+
+        flash.error = ':error-message';
+        flash.success = ':success-message';
+
+        var element = angular.element(template.join('\n'));
+
+        var $scope = $rootScope.$new();
+
+        spyOn(flash, 'clean').andCallThrough();
+
+        $compile(element)($scope);
+        $scope.$digest();
+
+        expect(element.find('.alert-heading').text()).toBe('error');
+        expect(element.find('.alert-message').text()).toBe(':error-message');
+        expect(element.hasClass('alert-error')).toBe(true);
+        expect(element.hasClass('in')).toBe(true);
+
+        $scope.$destroy();
+
+        expect(flash.clean).toHaveBeenCalled();
+        expect(flash.message).toBeNull();
+
+    }));
+
 });
