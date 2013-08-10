@@ -1,5 +1,4 @@
 'use strict';
-var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
 var mountFolder = function (connect, dir) {
     return connect.static(require('path').resolve(dir));
 };
@@ -106,19 +105,22 @@ module.exports = function (grunt) {
                 }
             }
         },
-        regarde: {
+        watch: {
             scripts: {
                 files: ['src/**/*.js'],
-                tasks: ['uglify']
+                tasks: ['phase-package']
             },
             livereload: {
+                options: {
+                    livereload: true
+                },
                 files: [
                     '<%= yeoman.app %>/*.html',
                     '<%= yeoman.app %>/scrips/*.js',
                     '<%= yeoman.app %>/scrips/**/*.js',
                     '<%= yeoman.dist %>/*.js'
-                ],
-                tasks: ['livereload']
+                ]
+
             }
         },
         bumpup: ['package.json', 'bower.json'],
@@ -132,7 +134,7 @@ module.exports = function (grunt) {
                 options: {
                     middleware: function (connect) {
                         return [
-                            lrSnippet,
+                            require('connect-livereload')(),
                             mountFolder(connect, yeomanConfig.dist),
                             mountFolder(connect, yeomanConfig.app),
                             mountFolder(connect, yeomanConfig.src),
@@ -159,10 +161,9 @@ module.exports = function (grunt) {
 
     grunt.registerTask('server', [
         'package',
-        'livereload-start',
         'connect:livereload',
         'open',
-        'regarde'
+        'watch'
     ]);
 
     grunt.registerTask('test-phantom', ['karma:phantom']);

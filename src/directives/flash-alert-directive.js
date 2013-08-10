@@ -18,6 +18,14 @@
 
                 $scope.flash = {};
 
+                $scope.hide = function () {
+                    $scope.flash = {};
+                    removeAlertClasses();
+                    if (!isBlank(attr.activeClass)) {
+                        element.removeClass(attr.activeClass);
+                    }
+                };
+
                 $scope.$on('$destroy', function () {
                     flash.clean();
                 });
@@ -27,14 +35,6 @@
                     element.removeClass('alert-warn');
                     element.removeClass('alert-error');
                     element.removeClass('alert-success');
-                }
-
-                function hide() {
-                    $scope.flash = {};
-                    removeAlertClasses();
-                    if (!isBlank(attr.activeClass)) {
-                        element.removeClass(attr.activeClass);
-                    }
                 }
 
                 function show(message, type) {
@@ -50,7 +50,10 @@
                         element.addClass(attr.activeClass);
                     }
 
-                    handle = $timeout(hide, 5000);
+                    var delay = Number(attr.duration || 5000);
+                    if (delay > 0) {
+                        handle = $timeout($scope.hide, delay);
+                    }
                 }
 
                 flash.subscribe(show, attr.flashAlert);

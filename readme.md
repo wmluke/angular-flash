@@ -57,6 +57,13 @@ Use the `flash-alert` directive to subscribe to flash messages...
     <span class="alert-message">{{flash.message}}</span>
 </div>
 
+<!-- Set the display duration in milli-secs.  Default is 5000, 0 disables the fade-away. -->
+<div flash-alert active-class="in" class="alert fade" duration="">
+    <!-- Manually hide the alert with `hide()` -->
+    <button type="button" class="close" ng-click="hide()">&times;</button>
+    <strong class="alert-heading">Boo!</strong>
+    <span class="alert-message">{{flash.message}}</span>
+</div>
 ```
 
 When a flash message is published, the `flash-alert` directive will add a class of the form `alert-<type>` and also add classes specified in `active-class`.  Then after 5 seconds it will remove them.

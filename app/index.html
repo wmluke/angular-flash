@@ -31,18 +31,27 @@
 <![endif]-->
 
 <div class="container">
-    <div ng-view></div>
 
     <div class="row row-alert">
         <div class="span12">
-            <div flash-alert active-class="in" class="alert fade">
+            <div flash-alert active-class="in" class="alert fade" duration="0">
+                <button type="button" class="close" ng-click="hide()">&times;</button>
                 <strong class="alert-heading">{{flash.type}}</strong>
                 <span class="alert-message">{{flash.message}}</span>
-                <p>Works outside of controller scope</p>
+
+                <p>This alert:</p>
+                <ul>
+                    <li>Shows all alerts</li>
+                    <li>Does not fade away</li>
+                    <li>Has a close button</li>
+                    <li>Works outside of controller scope</li>
+                </ul>
             </div>
 
         </div>
     </div>
+
+    <div ng-view></div>
 </div>
 
 <script src="components/jquery/jquery.js"></script>
