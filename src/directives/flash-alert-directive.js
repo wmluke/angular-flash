@@ -33,7 +33,7 @@
                 function removeAlertClasses() {
                     element.removeClass('alert-info');
                     element.removeClass('alert-warn');
-                    element.removeClass('alert-error');
+                    element.removeClass('alert-danger');
                     element.removeClass('alert-success');
                 }
 

@@ -75,7 +75,7 @@
             },
             set: function (message) {
                 _error = message;
-                _type = 'error';
+                _type = 'danger';
                 _notify(_type, message);
             }
         });
