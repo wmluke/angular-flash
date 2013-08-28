@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('App', ['angular-flash.flash-alert-directive', 'App.main-ctrl'])
+    angular.module('App', ['ngRoute', 'angular-flash.flash-alert-directive', 'App.main-ctrl'])
         .config(function ($routeProvider, $locationProvider) {
             $routeProvider
                 .when('/', {
