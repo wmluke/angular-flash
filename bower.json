@@ -1,7 +1,7 @@
 {
     "name": "angular-flash",
     "description": "Flash messages for Angular Js",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "main": [
         "dist/angular-flash.min.js",
         "dist/angular-flash.js"
@@ -17,12 +17,13 @@
         "Gruntfile.js"
     ],
     "dependencies": {
-        "angular": "~1.0.5"
+        "angular": "1.0 - 1.2"
     },
     "devDependencies": {
         "jquery": "~2.0.0",
-        "angular-mocks": "~1.0.6",
-        "angular-scenario": "~1.0.6",
+        "angular-mocks": "~1.2.0",
+        "angular-scenario": "~1.2.0",
+        "angular-route": "~1.2.0",
         "json3": "~3.2.4",
         "es5-shim": "~2.0.8",
         "bootstrap": "~2.3.2",
