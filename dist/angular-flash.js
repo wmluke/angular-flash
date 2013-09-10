@@ -1,5 +1,5 @@
 /**! 
- * @license angular-flash v0.1.7
+ * @license angular-flash v0.1.8
  * Copyright (c) 2013 William L. Bunselmeyer. https://github.com/wmluke/angular-flash
  * License: MIT
  */
@@ -8,7 +8,16 @@
 (function () {
     'use strict';
 
-    var Flash = function () {
+    var Flash = function (options) {
+        var _options = angular.extend({
+            classnames: {
+                error: [],
+                warn: [],
+                info: [],
+                success: []
+            }
+        }, options);
+
         var _self = this;
         var _subscribers = [];
         var _success;
@@ -96,15 +105,36 @@
                 return _type ? _self[_type] : null;
             }
         });
+
+        Object.defineProperty(this, 'classnames', {
+            get: function () {
+                return _options.classnames;
+            }
+        });
     };
 
-    function flashProvider() {
-        return new Flash();
-    }
+    angular.module('angular-flash.service', [])
+        .provider('flash', function () {
+            var _self = this;
+            this.errorClassnames = ['alert-error'];
+            this.warnClassnames = ['alert-warn'];
+            this.infoClassnames = ['alert-info'];
+            this.successClassnames = ['alert-success'];
 
-    angular.module('angular-flash.service', []).factory('flash', [flashProvider]);
+            this.$get = function () {
+                return new Flash({
+                    classnames: {
+                        error: _self.errorClassnames,
+                        warn: _self.warnClassnames,
+                        info: _self.infoClassnames,
+                        success: _self.successClassnames
+                    }
+                });
+            };
+        });
 
 }());
+
 /* global angular */
 
 (function () {
@@ -138,10 +168,10 @@
                 });
 
                 function removeAlertClasses() {
-                    element.removeClass('alert-info');
-                    element.removeClass('alert-warn');
-                    element.removeClass('alert-error');
-                    element.removeClass('alert-success');
+                    var classnames = [].concat(flash.classnames.error, flash.classnames.warn, flash.classnames.info, flash.classnames.success);
+                    angular.forEach(classnames, function (clazz) {
+                        element.removeClass(clazz);
+                    });
                 }
 
                 function show(message, type) {
@@ -152,7 +182,10 @@
                     $scope.flash.type = type;
                     $scope.flash.message = message;
                     removeAlertClasses();
-                    element.addClass('alert-' + type);
+                    angular.forEach(flash.classnames[type], function (clazz) {
+                        element.addClass(clazz);
+                    });
+
                     if (!isBlank(attr.activeClass)) {
                         element.addClass(attr.activeClass);
                     }

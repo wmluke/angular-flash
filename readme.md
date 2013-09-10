@@ -18,6 +18,26 @@ Load the `angular-flash.service` and the `angular-flash.flash-alert-directive` m
 angular.module('app', ['angular-flash.service', 'angular-flash.flash-alert-directive']);
 ```
 
+## Configure
+
+```javascript
+angular.module('app', ['angular-flash.service', 'angular-flash.flash-alert-directive']).config(function (flashProvider) {
+        .config(function (flashProvider) {
+            // Support bootstrap 3.0 "alert-danger" class with error flash types
+            flashProvider.errorClassnames.push('alert-danger');
+
+            /**
+             * Also have...
+             *
+             * flashProvider.warnClassnames
+             * flashProvider.infoClassnames
+             * flashProvider.successClassnames
+             */
+
+        })
+})
+```
+
 ## Usage
 
 Use the `flash` service to publish a flash messages...
@@ -69,6 +89,15 @@ Use the `flash-alert` directive to subscribe to flash messages...
 When a flash message is published, the `flash-alert` directive will add a class of the form `alert-<type>` and also add classes specified in `active-class`.  Then after 5 seconds it will remove them.
 
 The example above leverages Twitter Bootstrap CSS3 transitions: `fade` and `in`.
+
+### FlashProvider API
+
+```javascript
+flashProvider.errorClassnames
+flashProvider.warnClassnames
+flashProvider.infoClassnames
+flashProvider.successClassnames
+```
 
 ### Flash Service API
 

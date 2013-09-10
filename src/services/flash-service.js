@@ -3,7 +3,16 @@
 (function () {
     'use strict';
 
-    var Flash = function () {
+    var Flash = function (options) {
+        var _options = angular.extend({
+            classnames: {
+                error: [],
+                warn: [],
+                info: [],
+                success: []
+            }
+        }, options);
+
         var _self = this;
         var _subscribers = [];
         var _success;
@@ -91,12 +100,32 @@
                 return _type ? _self[_type] : null;
             }
         });
+
+        Object.defineProperty(this, 'classnames', {
+            get: function () {
+                return _options.classnames;
+            }
+        });
     };
 
-    function flashProvider() {
-        return new Flash();
-    }
+    angular.module('angular-flash.service', [])
+        .provider('flash', function () {
+            var _self = this;
+            this.errorClassnames = ['alert-error'];
+            this.warnClassnames = ['alert-warn'];
+            this.infoClassnames = ['alert-info'];
+            this.successClassnames = ['alert-success'];
 
-    angular.module('angular-flash.service', []).factory('flash', [flashProvider]);
+            this.$get = function () {
+                return new Flash({
+                    classnames: {
+                        error: _self.errorClassnames,
+                        warn: _self.warnClassnames,
+                        info: _self.infoClassnames,
+                        success: _self.successClassnames
+                    }
+                });
+            };
+        });
 
 }());

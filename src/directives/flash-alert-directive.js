@@ -31,10 +31,10 @@
                 });
 
                 function removeAlertClasses() {
-                    element.removeClass('alert-info');
-                    element.removeClass('alert-warn');
-                    element.removeClass('alert-error');
-                    element.removeClass('alert-success');
+                    var classnames = [].concat(flash.classnames.error, flash.classnames.warn, flash.classnames.info, flash.classnames.success);
+                    angular.forEach(classnames, function (clazz) {
+                        element.removeClass(clazz);
+                    });
                 }
 
                 function show(message, type) {
@@ -45,7 +45,10 @@
                     $scope.flash.type = type;
                     $scope.flash.message = message;
                     removeAlertClasses();
-                    element.addClass('alert-' + type);
+                    angular.forEach(flash.classnames[type], function (clazz) {
+                        element.addClass(clazz);
+                    });
+
                     if (!isBlank(attr.activeClass)) {
                         element.addClass(attr.activeClass);
                     }
