@@ -51,6 +51,9 @@ var FooController = function(flash){
 
     // Publish a error flash
     flash.error = 'Fail!';
+
+    // Publish an info flash to the `alert-1` subscriber
+    flash.to('alert-1').info = 'Only for alert 1';
 };
 
 FooController.$inject = ['flash'];
@@ -74,6 +77,12 @@ Use the `flash-alert` directive to subscribe to flash messages...
 
 <!-- Subscribe to all flash messages. -->
 <div flash-alert active-class="in" class="alert fade">
+    <strong class="alert-heading">Boo!</strong>
+    <span class="alert-message">{{flash.message}}</span>
+</div>
+
+<!-- Subscribe to all flash messages sent to `alert-1`. -->
+<div id="alert-1" flash-alert active-class="in" class="alert fade">
     <strong class="alert-heading">Boo!</strong>
     <span class="alert-message">{{flash.message}}</span>
 </div>

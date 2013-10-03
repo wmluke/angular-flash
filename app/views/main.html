@@ -2,10 +2,27 @@
     <div class="navbar-inner">
         <div class="container">
             <a class="brand" href="/">angular-flash <i class="icon-bolt"></i></a>
-            <button class="btn btn-info" ng-click="info()"><i class="icon-info-sign"></i> Info</button>
-            <button class="btn btn-warning" ng-click="warn()"><i class="icon-warning-sign"></i> Warning</button>
-            <button class="btn btn-success" ng-click="success()"><i class="icon-ok-sign"></i> Success</button>
-            <button class="btn btn-danger" ng-click="error()"><i class="icon-exclamation-sign"></i> Error</button>
+
+            <div class="btn-group">
+                <button class="btn btn-info" ng-click="info()"><i class="icon-info-sign"></i> Info</button>
+                <button class="btn btn-info" ng-click="info1()">Alert #1</button>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-warning" ng-click="warn()"><i class="icon-warning-sign"></i> Warning</button>
+                <button class="btn btn-warning" ng-click="warn1()">Alert #1</button>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-success" ng-click="success()"><i class="icon-ok-sign"></i> Success</button>
+                <button class="btn btn-success" ng-click="success1()">Alert #1</button>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-danger" ng-click="error()"><i class="icon-exclamation-sign"></i> Error</button>
+                <button class="btn btn-danger" ng-click="error1()">Alert #1</button>
+            </div>
+
             <button class="btn btn-primary" ng-click="all()"><i class="icon-flag"></i> All</button>
         </div>
     </div>

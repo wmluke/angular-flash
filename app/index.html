@@ -52,9 +52,23 @@
     </div>
 
     <div ng-view></div>
+
+    <div class="row row-alert">
+        <div class="span12">
+            <div id="alert-1" flash-alert active-class="in" class="alert fade" duration="0">
+                <button type="button" class="close" ng-click="hide()">&times;</button>
+                <i class="icon-ok-sign"></i>
+                <strong class="alert-heading">{{flash.type}}</strong>
+                <span class="alert-message">{{flash.message}}</span>
+                <h4 class="pull-right">Alert #1</h4>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 <script src="components/jquery/jquery.js"></script>
+<script src="components/bootstrap/docs/assets/js/bootstrap.min.js"></script>
 <script src="components/angular/angular.js"></script>
 <script src="components/angular-route/angular-route.js"></script>
 <script src="angular-flash.js"></script>

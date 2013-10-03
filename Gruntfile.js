@@ -70,7 +70,8 @@ module.exports = function (grunt) {
                 browsers: ['PhantomJS']
             },
             debug: {
-                singleRun: false
+                singleRun: false,
+                reporters: ['progress', 'junit']
             }
         },
         concat: {

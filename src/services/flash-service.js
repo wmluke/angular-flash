@@ -5,6 +5,8 @@
 
     var Flash = function (options) {
         var _options = angular.extend({
+            id: null,
+            subscribers: [],
             classnames: {
                 error: [],
                 warn: [],
@@ -14,7 +16,6 @@
         }, options);
 
         var _self = this;
-        var _subscribers = [];
         var _success;
         var _info;
         var _warn;
@@ -22,15 +23,17 @@
         var _type;
 
         function _notify(type, message) {
-            angular.forEach(_subscribers, function (subscriber) {
-                if (!subscriber.type || subscriber.type === type) {
+            angular.forEach(_options.subscribers, function (subscriber) {
+                var matchesType = !subscriber.type || subscriber.type === type;
+                var matchesId = (!_options.id && !subscriber.id) || subscriber.id === _options.id;
+                if (matchesType && matchesId) {
                     subscriber.cb(message, type);
                 }
             });
         }
 
         this.clean = function () {
-            _subscribers = [];
+            _options.subscribers = [];
             _success = null;
             _info = null;
             _warn = null;
@@ -38,11 +41,18 @@
             _type = null;
         };
 
-        this.subscribe = function (subscriber, type) {
-            _subscribers.push({
+        this.subscribe = function (subscriber, type, id) {
+            _options.subscribers.push({
                 cb: subscriber,
-                type: type
+                type: type,
+                id: id
             });
+        };
+
+        this.to = function (id) {
+            var options = angular.copy(_options);
+            options.id = id;
+            return new Flash(options);
         };
 
         Object.defineProperty(this, 'success', {
@@ -104,6 +114,12 @@
         Object.defineProperty(this, 'classnames', {
             get: function () {
                 return _options.classnames;
+            }
+        });
+
+        Object.defineProperty(this, 'id', {
+            get: function () {
+                return _options.id;
             }
         });
     };

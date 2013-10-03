@@ -59,7 +59,7 @@
                     }
                 }
 
-                flash.subscribe(show, attr.flashAlert);
+                flash.subscribe(show, attr.flashAlert, attr.id);
 
                 /**
                  * Fixes timing issues: display the last flash message sent before this directive subscribed.
