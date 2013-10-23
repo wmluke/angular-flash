@@ -21,7 +21,7 @@ angular.module('app', ['angular-flash.service', 'angular-flash.flash-alert-direc
 ## Configure
 
 ```javascript
-angular.module('app', ['angular-flash.service', 'angular-flash.flash-alert-directive']).config(function (flashProvider) {
+angular.module('app', ['angular-flash.service', 'angular-flash.flash-alert-directive'])
         .config(function (flashProvider) {
         
             // Support bootstrap 3.0 "alert-danger" class with error flash types
@@ -36,7 +36,6 @@ angular.module('app', ['angular-flash.service', 'angular-flash.flash-alert-direc
              */
 
         })
-})
 ```
 
 ## Usage
