@@ -1,5 +1,5 @@
 /**! 
- * @license angular-flash v0.1.9
+ * @license angular-flash v0.1.10
  * Copyright (c) 2013 William L. Bunselmeyer. https://github.com/wmluke/angular-flash
  * License: MIT
  */
@@ -8,10 +8,12 @@
 (function () {
     'use strict';
 
+    var subscriberCount = 0;
+
     var Flash = function (options) {
         var _options = angular.extend({
             id: null,
-            subscribers: [],
+            subscribers: {},
             classnames: {
                 error: [],
                 warn: [],
@@ -38,7 +40,6 @@
         }
 
         this.clean = function () {
-            _options.subscribers = [];
             _success = null;
             _info = null;
             _warn = null;
@@ -47,11 +48,17 @@
         };
 
         this.subscribe = function (subscriber, type, id) {
-            _options.subscribers.push({
+            subscriberCount += 1;
+            _options.subscribers[subscriberCount] = {
                 cb: subscriber,
                 type: type,
                 id: id
-            });
+            };
+            return subscriberCount;
+        };
+
+        this.unsubscribe = function (handle) {
+            delete _options.subscribers[handle];
         };
 
         this.to = function (id) {
@@ -167,7 +174,7 @@
         return {
             scope: true,
             link: function ($scope, element, attr) {
-                var handle;
+                var timeoutHandle, subscribeHandle;
 
                 $scope.flash = {};
 
@@ -181,6 +188,7 @@
 
                 $scope.$on('$destroy', function () {
                     flash.clean();
+                    flash.unsubscribe(subscribeHandle);
                 });
 
                 function removeAlertClasses() {
@@ -191,8 +199,8 @@
                 }
 
                 function show(message, type) {
-                    if (handle) {
-                        $timeout.cancel(handle);
+                    if (timeoutHandle) {
+                        $timeout.cancel(timeoutHandle);
                     }
 
                     $scope.flash.type = type;
@@ -208,11 +216,11 @@
 
                     var delay = Number(attr.duration || 5000);
                     if (delay > 0) {
-                        handle = $timeout($scope.hide, delay);
+                        timeoutHandle = $timeout($scope.hide, delay);
                     }
                 }
 
-                flash.subscribe(show, attr.flashAlert, attr.id);
+                subscribeHandle = flash.subscribe(show, attr.flashAlert, attr.id);
 
                 /**
                  * Fixes timing issues: display the last flash message sent before this directive subscribed.

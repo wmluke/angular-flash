@@ -3,10 +3,12 @@
 (function () {
     'use strict';
 
+    var subscriberCount = 0;
+
     var Flash = function (options) {
         var _options = angular.extend({
             id: null,
-            subscribers: [],
+            subscribers: {},
             classnames: {
                 error: [],
                 warn: [],
@@ -33,7 +35,6 @@
         }
 
         this.clean = function () {
-            _options.subscribers = [];
             _success = null;
             _info = null;
             _warn = null;
@@ -42,11 +43,17 @@
         };
 
         this.subscribe = function (subscriber, type, id) {
-            _options.subscribers.push({
+            subscriberCount += 1;
+            _options.subscribers[subscriberCount] = {
                 cb: subscriber,
                 type: type,
                 id: id
-            });
+            };
+            return subscriberCount;
+        };
+
+        this.unsubscribe = function (handle) {
+            delete _options.subscribers[handle];
         };
 
         this.to = function (id) {
