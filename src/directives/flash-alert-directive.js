@@ -14,7 +14,7 @@
         return {
             scope: true,
             link: function ($scope, element, attr) {
-                var handle;
+                var timeoutHandle, subscribeHandle;
 
                 $scope.flash = {};
 
@@ -28,6 +28,7 @@
 
                 $scope.$on('$destroy', function () {
                     flash.clean();
+                    flash.unsubscribe(subscribeHandle);
                 });
 
                 function removeAlertClasses() {
@@ -38,8 +39,8 @@
                 }
 
                 function show(message, type) {
-                    if (handle) {
-                        $timeout.cancel(handle);
+                    if (timeoutHandle) {
+                        $timeout.cancel(timeoutHandle);
                     }
 
                     $scope.flash.type = type;
@@ -55,11 +56,11 @@
 
                     var delay = Number(attr.duration || 5000);
                     if (delay > 0) {
-                        handle = $timeout($scope.hide, delay);
+                        timeoutHandle = $timeout($scope.hide, delay);
                     }
                 }
 
-                flash.subscribe(show, attr.flashAlert, attr.id);
+                subscribeHandle = flash.subscribe(show, attr.flashAlert, attr.id);
 
                 /**
                  * Fixes timing issues: display the last flash message sent before this directive subscribed.

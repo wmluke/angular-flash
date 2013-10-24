@@ -287,37 +287,90 @@ describe('flash-alert-directive', function () {
         expect(element.hasClass('in')).toBe(true);
     }));
 
-    it('should clean the flash service when the directive scope is destroyed', inject(function ($rootScope, $compile, flash) {
-        var template = [
-            '<div flash-alert="error" active-class="in" class="alert fade">',
-            '<strong class="alert-heading">{{flash.type}}</strong>',
-            '<span class="alert-message">{{flash.message}}</span>',
-            '</div>'
-        ];
+    describe('scope destroy', function () {
 
-        flash.error = ':error-message';
-        flash.success = ':success-message';
+        it('should clean the flash service when the directive scope is destroyed', inject(function ($rootScope, $compile, flash) {
+            var template = [
+                '<div flash-alert="error" active-class="in" class="alert fade">',
+                '<strong class="alert-heading">{{flash.type}}</strong>',
+                '<span class="alert-message">{{flash.message}}</span>',
+                '</div>'
+            ];
 
-        var element = angular.element(template.join('\n'));
+            flash.error = ':error-message';
+            flash.success = ':success-message';
 
-        var $scope = $rootScope.$new();
+            var element = angular.element(template.join('\n'));
 
-        spyOn(flash, 'clean').andCallThrough();
+            var $scope = $rootScope.$new();
 
-        $compile(element)($scope);
-        $scope.$digest();
+            spyOn(flash, 'clean').andCallThrough();
+            spyOn(flash, 'unsubscribe').andCallThrough();
 
-        expect(element.find('.alert-heading').text()).toBe('error');
-        expect(element.find('.alert-message').text()).toBe(':error-message');
-        expect(element.hasClass('alert-error')).toBe(true);
-        expect(element.hasClass('alert-danger')).toBe(true);
-        expect(element.hasClass('in')).toBe(true);
+            $compile(element)($scope);
+            $scope.$digest();
 
-        $scope.$destroy();
+            expect(element.find('.alert-heading').text()).toBe('error');
+            expect(element.find('.alert-message').text()).toBe(':error-message');
+            expect(element.hasClass('alert-error')).toBe(true);
+            expect(element.hasClass('alert-danger')).toBe(true);
+            expect(element.hasClass('in')).toBe(true);
 
-        expect(flash.clean).toHaveBeenCalled();
-        expect(flash.message).toBeNull();
+            $scope.$destroy();
 
-    }));
+            expect(flash.clean).toHaveBeenCalled();
+            expect(flash.unsubscribe).toHaveBeenCalledWith(jasmine.any(Number));
+            expect(flash.message).toBeNull();
+
+        }));
+
+        it('should not unsubscribe subscribers when the directive scope is destroyed', inject(function ($rootScope, $compile, flash) {
+            var template = [
+                '<div flash-alert active-class="in" class="alert fade">',
+                '<strong class="alert-heading">{{flash.type}}</strong>',
+                '<span class="alert-message">{{flash.message}}</span>',
+                '</div>'
+            ];
+
+            var element1 = angular.element(template.join('\n'));
+            var element2 = angular.element(template.join('\n'));
+
+            var $scope1 = $rootScope.$new();
+            var $scope2 = $rootScope.$new();
+
+            spyOn(flash, 'clean').andCallThrough();
+            spyOn(flash, 'unsubscribe').andCallThrough();
+
+            $compile(element1)($scope1);
+            $compile(element2)($scope2);
+
+            flash.success = ':success-message';
+
+            $scope1.$digest();
+            $scope2.$digest();
+
+            $scope1.$destroy();
+
+            flash.error = ':error-message';
+
+            $scope1.$digest();
+            $scope2.$digest();
+
+            expect(flash.clean.calls.length).toEqual(1);
+            expect(flash.unsubscribe.calls.length).toEqual(1);
+
+            expect(element1.find('.alert-heading').text()).toBe('success');
+            expect(element1.find('.alert-message').text()).toBe(':success-message');
+            expect(element1.hasClass('alert-success')).toBe(true);
+            expect(element1.hasClass('in')).toBe(true);
+
+            expect(element2.find('.alert-heading').text()).toBe('error');
+            expect(element2.find('.alert-message').text()).toBe(':error-message');
+            expect(element2.hasClass('alert-error')).toBe(true);
+            expect(element2.hasClass('alert-danger')).toBe(true);
+            expect(element2.hasClass('in')).toBe(true);
+        }));
+    });
+
 
 });
