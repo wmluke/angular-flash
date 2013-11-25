@@ -179,11 +179,14 @@
                 $scope.flash = {};
 
                 $scope.hide = function () {
-                    $scope.flash = {};
-                    removeAlertClasses();
                     if (!isBlank(attr.activeClass)) {
                         element.removeClass(attr.activeClass);
                     }
+                    var postFadeWait = Number(attr.postFadeWait || 2000);
+                    $timeout(function () {
+                        $scope.flash = {};
+                        removeAlertClasses();
+                    }, postFadeWait);
                 };
 
                 $scope.$on('$destroy', function () {
