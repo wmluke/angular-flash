@@ -3,6 +3,20 @@
 (function () {
     'use strict';
 
+    var cssTimeRegex = /^([\-\+]?[0-9]+(\.[0-9]+)?)(m?s)$/;
+
+    // courtesy of https://github.com/philbooth/css-time.js
+    //
+    function fromCssTime(cssTime) {
+        var matches = cssTimeRegex.exec(cssTime);
+
+        if (matches === null) {
+            return 0;
+        }
+
+        return parseFloat(matches[1]) * (matches[3] === 's' ? 1000 : 1);
+    }
+
     function isBlank(str) {
         if (str === null || str === undefined) {
             str = '';
@@ -19,11 +33,15 @@
                 $scope.flash = {};
 
                 $scope.hide = function () {
-                    $scope.flash = {};
-                    removeAlertClasses();
                     if (!isBlank(attr.activeClass)) {
                         element.removeClass(attr.activeClass);
                     }
+                    var transitionDurationString = element.css('transition-duration');
+                    var transitionDuration = fromCssTime(transitionDurationString);
+                    $timeout(function () {
+                        $scope.flash = {};
+                        removeAlertClasses();
+                    }, transitionDuration);
                 };
 
                 $scope.$on('$destroy', function () {

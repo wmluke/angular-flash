@@ -7,3 +7,10 @@ body {
     /*min-height: 60px;*/
     /*margin-bottom: 1em;*/
 }
+
+/* exaggerate the fade for demo */
+.fade {
+    opacity: 0;
+    -webkit-transition: opacity 1s linear;
+    transition: opacity 1s linear;
+}

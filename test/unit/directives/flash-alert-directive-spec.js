@@ -16,13 +16,13 @@ describe('flash-alert-directive', function () {
                 spy.cancel = $delegate.cancel;
                 return  spy;
             });
+
         });
 
     });
 
 
     it('should display all flash messages', inject(function ($rootScope, $compile, $timeout, flash) {
-
         var template = [
             '<div flash-alert active-class="in" class="alert fade">',
             '<strong class="alert-heading">{{flash.type}}</strong>',
