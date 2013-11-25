@@ -3,6 +3,19 @@
 (function () {
     'use strict';
 
+    var regex = /^([\-\+]?[0-9]+(\.[0-9]+)?)(m?s)$/;
+
+    // https://github.com/philbooth/css-time.js/blob/master/src/css-time.js#L22
+    function from(cssTime) {
+        var matches = regex.exec(cssTime);
+
+        if (matches === null) {
+            throw new Error('Invalid CSS time');
+        }
+
+        return parseFloat(matches[1]) * (matches[3] === 's' ? 1000 : 1);
+    }
+
     function isBlank(str) {
         if (str === null || str === undefined) {
             str = '';
@@ -22,11 +35,13 @@
                     if (!isBlank(attr.activeClass)) {
                         element.removeClass(attr.activeClass);
                     }
-                    var postFadeWait = Number(attr.postFadeWait || 2000);
+                    var transitionDurationString = element.css('transition-duration');
+                    var transitionDuration = from(transitionDurationString);
+                    //console.log('adding delay of transition-duration=[%s] prior to initializing flash...', transitionDuration);
                     $timeout(function () {
                         $scope.flash = {};
                         removeAlertClasses();
-                    }, postFadeWait);
+                    }, transitionDuration);
                 };
 
                 $scope.$on('$destroy', function () {
