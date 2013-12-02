@@ -19,7 +19,6 @@
                 $scope.flash = {};
 
                 $scope.hide = function () {
-                    $scope.flash = {};
                     removeAlertClasses();
                     if (!isBlank(attr.activeClass)) {
                         element.removeClass(attr.activeClass);

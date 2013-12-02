@@ -99,6 +99,83 @@ When a flash message is published, the `flash-alert` directive will add a class 
 
 The example above leverages Twitter Bootstrap CSS3 transitions: `fade` and `in`.
 
+### Styling Considerations
+
+Bootstrap 2 has a few styling quirks with the `.alert` and `.fade` classes.
+
+#### Visible or not
+
+Some folks may want hidden alerts to take up visible space others may not.  Fortunately, each case is easy to achieve by declaring `.alert` as indicated below...
+
+Takes up no visible space when hidden
+```html
+<div flash-alert active-class="in alert" class="fade">
+...
+</div>
+```
+
+Takes up visible space when hidden
+```html
+<div flash-alert active-class="in" class="fade alert">
+...
+</div>
+```
+
+#### CSS Transition Quirks
+
+The `.fade` class only transitions opacity and the base `.alert` class has a background color and background border used for alert warnings.  Together these styling attributes can make it challenging to achieve smooth transitions.
+
+Fortunately, its easy to replace the `.alert` class and move the warning colors to `.alert-warn` as illustrated below...
+
+Styling
+```css
+/* Remove colors and add transition property */
+.alert-flash {
+    padding: 8px 35px 8px 14px;
+    margin-bottom: 20px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    border: 1px solid transparent;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+
+    /* change transition property to all */
+    -webkit-transition-property: all;
+    transition-property: all;
+}
+
+.alert-flash h4 {
+    margin: 0;
+}
+
+.alert-flash .close {
+    position: relative;
+    top: -2px;
+    right: -21px;
+    line-height: 20px;
+}
+
+/* add warning colors to warn class */
+.alert-warn {
+    background-color: #fcf8e3;
+    border: 1px solid #fbeed5;
+}
+
+.alert-warn,
+.alert-warn h4 {
+    color: #c09853;
+}
+```
+
+Template:
+```html
+<div flash-alert="info" active-class="in" class="alert-flash fade">
+    <i class="icon-info-sign"></i>
+    <strong class="alert-heading">Ahem...</strong>
+    <span class="alert-message">{{flash.message}}</span>
+</div>
+```
+
 ### FlashProvider API
 
 ```javascript

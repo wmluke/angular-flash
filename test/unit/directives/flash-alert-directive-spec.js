@@ -51,8 +51,8 @@ describe('flash-alert-directive', function () {
 
         $timeout.flush();
 
-        expect(element.find('.alert-heading').text()).toBe('');
-        expect(element.find('.alert-message').text()).toBe('');
+        expect(element.find('.alert-heading').text()).toBe('error');
+        expect(element.find('.alert-message').text()).toBe(':error-message');
         expect(element.hasClass('alert-error')).toBe(false);
         expect(element.hasClass('in')).toBe(false);
 
@@ -67,8 +67,8 @@ describe('flash-alert-directive', function () {
 
         $timeout.flush();
 
-        expect(element.find('.alert-heading').text()).toBe('');
-        expect(element.find('.alert-message').text()).toBe('');
+        expect(element.find('.alert-heading').text()).toBe('success');
+        expect(element.find('.alert-message').text()).toBe(':success-message');
         expect(element.hasClass('alert-success')).toBe(false);
         expect(element.hasClass('in')).toBe(false);
 
@@ -104,8 +104,8 @@ describe('flash-alert-directive', function () {
 
         $timeout.flush();
 
-        expect(element.find('.alert-heading').text()).toBe('');
-        expect(element.find('.alert-message').text()).toBe('');
+        expect(element.find('.alert-heading').text()).toBe('error');
+        expect(element.find('.alert-message').text()).toBe(':error-message');
         expect(element.hasClass('alert-error')).toBe(false);
         expect(element.hasClass('alert-danger')).toBe(false);
         expect(element.hasClass('in')).toBe(false);
@@ -113,8 +113,8 @@ describe('flash-alert-directive', function () {
         flash.success = ':success-message';
         $rootScope.$digest();
 
-        expect(element.find('.alert-heading').text()).toBe('');
-        expect(element.find('.alert-message').text()).toBe('');
+        expect(element.find('.alert-heading').text()).toBe('error');
+        expect(element.find('.alert-message').text()).toBe(':error-message');
         expect(element.hasClass('alert-success')).toBe(false);
         expect(element.hasClass('in')).toBe(false);
 
@@ -156,8 +156,8 @@ describe('flash-alert-directive', function () {
 
         $timeout.flush();
 
-        expect(element.find('.alert-heading').text()).toBe('');
-        expect(element.find('.alert-message').text()).toBe('');
+        expect(element.find('.alert-heading').text()).toBe('success');
+        expect(element.find('.alert-message').text()).toBe(':success-message');
         expect(element.hasClass('alert-error')).toBe(false);
         expect(element.hasClass('alert-danger')).toBe(false);
         expect(element.hasClass('alert-success')).toBe(false);

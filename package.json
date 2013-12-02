@@ -2,7 +2,7 @@
   "name": "angular-flash",
   "description": "Flash messages for Angular JS",
   "private": false,
-  "version": "0.1.10",
+  "version": "0.1.11",
   "homepage": "https://github.com/wmluke/angular-flash",
   "author": {
     "name": "William L. Bunselmeyer",
