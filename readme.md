@@ -54,6 +54,10 @@ var FooController = function(flash){
 
     // Publish an info flash to the `alert-1` subscriber
     flash.to('alert-1').info = 'Only for alert 1';
+
+    // The `flash-alert` directive hides itself when if receives falsey flash messages of any type
+    flash.error = '';
+
 };
 
 FooController.$inject = ['flash'];
