@@ -53,6 +53,11 @@
                         element.addClass(attr.activeClass);
                     }
 
+                    if (!message) {
+                        $scope.hide();
+                        return;
+                    }
+
                     var delay = Number(attr.duration || 5000);
                     if (delay > 0) {
                         timeoutHandle = $timeout($scope.hide, delay);

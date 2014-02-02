@@ -287,6 +287,44 @@ describe('flash-alert-directive', function () {
         expect(element.hasClass('in')).toBe(true);
     }));
 
+    it('should hide the alert if the flash message is falsey', inject(function ($rootScope, $compile, flash) {
+        var template = [
+            '<div flash-alert="error" active-class="in" class="alert fade" duration="0">',
+            '<strong class="alert-heading">{{flash.type}}</strong>',
+            '<span class="alert-message">{{flash.message}}</span>',
+            '</div>'
+        ];
+
+        var element = angular.element(template.join('\n'));
+        $compile(element)($rootScope);
+        $rootScope.$digest();
+
+        expect(element.find('.alert-heading').text()).toBe('');
+        expect(element.find('.alert-message').text()).toBe('');
+        expect(element.hasClass('alert-error')).toBe(false);
+        expect(element.hasClass('alert-danger')).toBe(false);
+        expect(element.hasClass('in')).toBe(false);
+
+        flash.error = ':error-message';
+        $rootScope.$digest();
+
+        expect(element.find('.alert-heading').text()).toBe('error');
+        expect(element.find('.alert-message').text()).toBe(':error-message');
+        expect(element.hasClass('alert-error')).toBe(true);
+        expect(element.hasClass('alert-danger')).toBe(true);
+        expect(element.hasClass('in')).toBe(true);
+
+        flash.error = '';
+        $rootScope.$digest();
+
+        expect(element.find('.alert-heading').text()).toBe('error');
+        expect(element.find('.alert-message').text()).toBe('');
+        expect(element.hasClass('alert-error')).toBe(false);
+        expect(element.hasClass('alert-danger')).toBe(false);
+        expect(element.hasClass('in')).toBe(false);
+
+    }));
+
     describe('scope destroy', function () {
 
         it('should clean the flash service when the directive scope is destroyed', inject(function ($rootScope, $compile, flash) {

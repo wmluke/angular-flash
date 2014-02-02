@@ -43,6 +43,10 @@
             flash.to('alert-1').error = 'error message';
         };
 
+        $scope.dismissAlert1 = function () {
+            flash.to('alert-1').error = false;
+        };
+
         $scope.all();
     };
 

@@ -20,7 +20,13 @@
 
             <div class="btn-group">
                 <button class="btn btn-danger" ng-click="error()"><i class="icon-exclamation-sign"></i> Error</button>
-                <button class="btn btn-danger" ng-click="error1()">Alert #1</button>
+                <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="" ng-click="error1()">Alert #1</a></li>
+                    <li><a href="" ng-click="dismissAlert1()">Dismiss Alert #1</a></li>
+                </ul>
             </div>
 
             <button class="btn btn-primary" ng-click="all()"><i class="icon-flag"></i> All</button>
@@ -30,11 +36,11 @@
 
 <div class="row row-alert">
     <div class="span12">
-<div flash-alert="info" active-class="in" class="alert-flash fade">
-    <i class="icon-info-sign"></i>
-    <strong class="alert-heading">Ahem...</strong>
-    <span class="alert-message">{{flash.message}}</span>
-</div>
+        <div flash-alert="info" active-class="in" class="alert-flash fade">
+            <i class="icon-info-sign"></i>
+            <strong class="alert-heading">Ahem...</strong>
+            <span class="alert-message">{{flash.message}}</span>
+        </div>
     </div>
 </div>
 

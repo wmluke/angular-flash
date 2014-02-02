@@ -1,5 +1,5 @@
 /**! 
- * @license angular-flash v0.1.11
+ * @license angular-flash v0.1.12
  * Copyright (c) 2013 William L. Bunselmeyer. https://github.com/wmluke/angular-flash
  * License: MIT
  */
@@ -211,6 +211,11 @@
 
                     if (!isBlank(attr.activeClass)) {
                         element.addClass(attr.activeClass);
+                    }
+
+                    if (!message) {
+                        $scope.hide();
+                        return;
                     }
 
                     var delay = Number(attr.duration || 5000);
