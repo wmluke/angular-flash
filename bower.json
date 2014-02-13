@@ -3,7 +3,6 @@
     "description": "Flash messages for Angular Js",
     "version": "0.1.12",
     "main": [
-        "dist/angular-flash.min.js",
         "dist/angular-flash.js"
     ],
     "ignore": [
