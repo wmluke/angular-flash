@@ -21,7 +21,8 @@
   },
   "scripts": {
     "test": "grunt test-phantom",
-    "start": "node app"
+    "start": "node app",
+    "coveralls": "cat ./reports/coverage/*/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {},
   "devDependencies": {
@@ -46,7 +47,8 @@
     "karma-junit-reporter": "~0.1.0",
     "karma-coverage": "~0.1.0",
     "grunt-contrib-watch": "~0.5.1",
-    "connect-livereload": "~0.2.0"
+    "connect-livereload": "~0.2.0",
+    "coveralls": "~2.8.0"
   },
   "keywords": [
     "angular",
