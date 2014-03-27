@@ -1,7 +1,7 @@
 {
     "name": "angular-flash",
     "description": "Flash messages for Angular Js",
-    "version": "0.1.12",
+    "version": "0.1.13",
     "main": [
         "dist/angular-flash.js"
     ],
