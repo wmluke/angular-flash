@@ -3,3 +3,8 @@ node_modules
 bower_components
 libpeerconnection.log
 reports
+
+*.swp
+*.swo
+
+npm-debug.log
