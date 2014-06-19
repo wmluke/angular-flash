@@ -34,11 +34,31 @@
             });
         }
 
-        this.clean = function () {
+        this.getCount = function () {
+          var c = 0;
+          if(_info){
+            ++c;
+          }
+          if(_success){
+            ++c;
+          }
+          if(_warn){
+            ++c;
+          }
+          if(_error){
+            ++c;
+          }
+          return c;
+        };
+
+        this.clean = function (keepDisplayed) {
             _success = null;
             _info = null;
             _warn = null;
             _error = null;
+            if(!keepDisplayed){
+              _notify(null, ''); // buffix - remove already displayed messages
+            }
             _type = null;
         };
 
