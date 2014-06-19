@@ -1,4 +1,4 @@
-/**! 
+/**!
  * @license angular-flash v0.1.13
  * Copyright (c) 2013 William L. Bunselmeyer. https://github.com/wmluke/angular-flash
  * License: MIT
@@ -39,11 +39,31 @@
             });
         }
 
-        this.clean = function () {
+        this.getCount = function () {
+          var c = 0;
+          if(_info){
+            ++c;
+          }
+          if(_success){
+            ++c;
+          }
+          if(_warn){
+            ++c;
+          }
+          if(_error){
+            ++c;
+          }
+          return c;
+        };
+
+        this.clean = function (keepDisplayed) {
             _success = null;
             _info = null;
             _warn = null;
             _error = null;
+            if(!keepDisplayed){
+              _notify(null, ''); // buffix - remove already displayed messages
+            }
             _type = null;
         };
 
@@ -183,6 +203,8 @@
                     if (!isBlank(attr.activeClass)) {
                         element.removeClass(attr.activeClass);
                     }
+                    $scope.flash = {}; // bugfix https://github.com/wmluke/angular-flash/issues/34
+                    element.css({display : 'none'}); // bugfix for close button
                 };
 
                 $scope.$on('$destroy', function () {
@@ -212,6 +234,8 @@
                     if (!isBlank(attr.activeClass)) {
                         element.addClass(attr.activeClass);
                     }
+
+                    element.css({display : 'block'}); // bugfix for close button
 
                     if (!message) {
                         $scope.hide();

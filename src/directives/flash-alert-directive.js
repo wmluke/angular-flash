@@ -23,6 +23,8 @@
                     if (!isBlank(attr.activeClass)) {
                         element.removeClass(attr.activeClass);
                     }
+                    $scope.flash = {}; // bugfix https://github.com/wmluke/angular-flash/issues/34
+                    element.css({display : 'none'}); // bugfix for close button
                 };
 
                 $scope.$on('$destroy', function () {
@@ -52,6 +54,8 @@
                     if (!isBlank(attr.activeClass)) {
                         element.addClass(attr.activeClass);
                     }
+
+                    element.css({display : 'block'}); // bugfix for close button
 
                     if (!message) {
                         $scope.hide();
