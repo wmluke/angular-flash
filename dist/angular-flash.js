@@ -1,5 +1,5 @@
 /**! 
- * @license angular-flash v0.1.13
+ * @license angular-flash v0.1.14
  * Copyright (c) 2013 William L. Bunselmeyer. https://github.com/wmluke/angular-flash
  * License: MIT
  */
