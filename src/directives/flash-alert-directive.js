@@ -26,8 +26,11 @@
                 };
 
                 $scope.$on('$destroy', function () {
-                    flash.clean();
-                    flash.unsubscribe(subscribeHandle);
+                    if(flash.cleanOnReload) {
+                        flash.clean();
+                        flash.unsubscribe(subscribeHandle);
+                    }
+		    flash.cleanOnReload = true;
                 });
 
                 function removeAlertClasses() {

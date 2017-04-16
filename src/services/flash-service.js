@@ -23,6 +23,7 @@
         var _warn;
         var _error;
         var _type;
+	var _cleanOnReload = true;
 
         function _notify(type, message) {
             angular.forEach(_options.subscribers, function (subscriber) {
@@ -127,6 +128,15 @@
         Object.defineProperty(this, 'id', {
             get: function () {
                 return _options.id;
+            }
+        });
+
+        Object.defineProperty(this, 'cleanOnReload', {
+            get: function () {
+                return _cleanOnReload;
+            },
+            set: function (cleanOnReload) {
+                _cleanOnReload = cleanOnReload;
             }
         });
     };
